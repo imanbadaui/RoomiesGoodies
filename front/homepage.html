@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomiesGoodies</title>
+</head>
+
+<body>
+    <div id = "loginContainer">
+        <p> Welcome Roomie! &#128522;</p>
+        <form action="/profile" method="get">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="box" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="box" required><br>
+
+            <div id="loginErrorMessage"></div>
+
+            <a href="/homepage/">forgot password?</a> <br><br>
+
+            <input type="button" value="Log In" id="loginButton"> <br><br>
+            <input type="button" value="Admin" id="adminButton"> <br><br>
+            <input type="button" value="Create New Account" id="createAccountButton">
+
+        </form>
+    </div>
+
+    <script src="userauthscript.js"></script>
+</body>
+
+</html>

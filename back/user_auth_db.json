@@ -1,0 +1,31 @@
+[
+{
+"username": "Immz",
+ "password": "8f52cd2f8385b8609bc5b7d1bb575322f2696eebc5f72adcc321f68d3abc4ee5",
+ "is_admin": true
+}
+,
+{
+"username": "loli",
+ "password": "",
+ "is_admin": true
+}
+,
+{
+"username": "laila",
+ "password": "",
+ "is_admin": false
+}
+,
+{
+"username": "noha",
+ "password": "",
+ "is_admin": false
+}
+,
+{
+"username": "Mostafa",
+ "password": "",
+ "is_admin": true
+}
+]

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Account</title>
+</head>
+<body>
+    <p> Welcome Home Roomie! </p>
+    <form action="/profile" method="get">
+
+        <label for="grantedUsername">Enter Granted Username:</label>
+        <input type="text" id="grantedUsername" name="grantedUsername" class="box" required><br><br>
+
+        <label for="newRoomiePassword">Enter Password:</label>
+        <input type="password" id="newRoomiePassword" name="newRoomiePassword" class="box" required><br>
+
+        <div id="loginErrorMessage"></div>
+
+        <input type="button" value="Create" id="createButton"> <br><br>
+    </form>
+</body>
+</html>

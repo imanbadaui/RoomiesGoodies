@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Access</title>
+</head>
+
+<body>
+    <form  action="/profile" method="get">
+        <p> Grant a new username </p>
+        <label for="newUsername"> New Username:</label>
+        <input type="text" id="newUsername" name="newUsername" class="box" required><br><br>
+
+        <label for="isAdminCheckBox ">is Admin?</label>
+        <input type="checkbox" id="isAdminCheckBox" name="isAdminCheckBox"><br><br>
+
+        <input type="button" value="Grant" id="grantButton">
+
+        <div id="newUserConfirmMessage"></div>
+        <input type="button" value="Go to Profile" id="goToProfileButton">
+    </form> 
+
+<script src="adminaccess.js">  </script>
+</body>
+
+</html>

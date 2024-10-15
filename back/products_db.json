@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Tomato",
+        "owner": "immz",
+        "code": "54",
+        "price": 23.5,
+        "quantity": 5,
+        "unit": "pieces",
+        "access": "personal"
+    },
+    {
+        "name": "mango",
+        "owner": "Souz",
+        "code": "74",
+        "price": 80,
+        "quantity": 8,
+        "unit": "pieces",
+        "access": "shared"
+    },
+    {
+        "name": "orange juice",
+        "owner": "badoo",
+        "code": "23",
+        "price": 55,
+        "quantity": 1,
+        "unit": "L",
+        "access": "personal"
+    }
+]
