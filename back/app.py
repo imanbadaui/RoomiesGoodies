@@ -51,7 +51,7 @@ def receive_login_data():
 	for user in allusers_data:
 		if user['username'] == username: # Check if the username exist in DB
 			if user['password'] == hashed_pass:  # Check if the hashed passwords matches a record in DB
-				message = "1"  # Login successful
+				message = "1"  #Login successful
 				if user['is_admin']:
 					user_is_admin = True
 				break
@@ -78,3 +78,28 @@ def receive_newuser_grant_data():
 		#0 means there was no username sent and no object created in DB
 		return flask.jsonify({'message': "0"})
 
+
+
+#receive password of granted user data from front end
+@app.route("/newAccount" , methods=['POST'])
+def receive_newuser_password_data():
+	# Get the JSON newuser username and password sent from the frontend
+	data = flask.request.get_json()  
+
+	granted_username = data.get("grantedUsername")
+	new_password = data.get("newPassword")
+
+	if granted_username != "" and new_password != "":
+		hashed_pass = hash_pass(new_password)
+		#read users from JSON
+		allusers_data = read_json_db("user_auth_db.json")
+
+		added = False
+		for user in allusers_data:
+			if user['granted_username'] == granted_username: # Check if the username exist in DB
+				user['new_password'] = hashed_pass
+				#1 means created successfully
+				return flask.jsonify({'message': "1"})
+			else:
+				#0 means user not exist
+				return flask.jsonify({'message': "0"})
