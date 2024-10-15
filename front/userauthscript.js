@@ -1,9 +1,10 @@
 //handling login
-let username = document.getElementById("username");
-let password = document.getElementById("password");
-let loginButton = document.getElementById("loginButton");
-let adminButton = document.getElementById("adminButton");
-let loginErrorMessage = document.getElementById("loginErrorMessage");
+const username = document.getElementById("username");
+const password = document.getElementById("password");
+const loginButton = document.getElementById("loginButton");
+const adminButton = document.getElementById("adminButton");
+const createAccountButton = document.getElementById("createAccountButton");
+const loginErrorMessage = document.getElementById("loginErrorMessage");
 
 let xhrLoginAuth = new XMLHttpRequest();
 
@@ -90,43 +91,6 @@ adminButton.addEventListener("click", function () {
 });
 
 
-/*
-let createAccountButton = document.getElementById("createAccountButton");
-
-
-//add admin form to same login page
-function replace_login_NewAcc() {
-    let loginContainer = document.getElementById("loginContainer");
-    loginContainer.innerHTML = "";
-
-    // Create the new form
-    const newaccountForm = `
-        <div id = "newAccContainer">
-        <p> Welcome Home Roomie! </p>
-        <form action="/profile" method="get">
-
-            <label for="grantedUsername">Enter Granted Username:</label>
-            <input type="text" id="grantedUsername" name="grantedUsername" class="box" required><br><br>
-
-            <label for="newRoomiePassword">Enter Password:</label>
-            <input type="password" id="newRoomiePassword" name="newRoomiePassword" class="box" required><br>
-
-            <div id="loginErrorMessage"></div>
-
-            <input type="button" value="Create" id="createButton"> <br><br>
-        </form>
-    </div>
-            `;
-
-    loginContainer.innerHTML = newaccountForm;
-}
-    
-createAccountButton.addEventListener("click", replace_login_NewAcc);
-
-
-let grantedUsername = document.getElementById("grantedUsername");
-let newRoomiePassword = document.getElementById("newRoomiePassword");
-let createButton = document.getElementById("createButton");
-
-//createButton.addEventListener();
-*/
+createAccountButton.addEventListener("click", function(){
+    window.location.href = "newaccount.html";
+});
