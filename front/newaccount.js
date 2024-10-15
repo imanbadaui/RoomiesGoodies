@@ -6,10 +6,6 @@ const goToProfileButton = document.getElementById("goToProfileButton");
 
 let xhrNewAccountAuth = new XMLHttpRequest();
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 //send password to the granted username to the DB
 function sendNewAccountData() {
     //password for new user account
@@ -37,7 +33,6 @@ createButton.addEventListener("click", function () {
                 newAccountConfirmMessage.innerHTML = "<p> Please Enter a valid username and password. </p>";
             }else if(response.message === "2"){
                 newAccountConfirmMessage.innerHTML = "<p> Account already created. </p>";
-                window.location.href = "homepage.html";
             }
         } else {
             newAccountConfirmMessage.innerHTML = "<p> An error occurred while storing new username. Please try again. </p>";
