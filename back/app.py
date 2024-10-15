@@ -18,6 +18,7 @@ products_db = 'products_db.json'
 
 #change from static to dynamic. front end must send first admin details.
 #create first admin
+#loli password = 123
 def create_first_admin():
 	first_admin_name = "Immz"
 	first_admin_pass = "3e37844873"
