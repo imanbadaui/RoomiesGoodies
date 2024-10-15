@@ -1,8 +1,9 @@
 import flask
+import json
 from flask_cors import CORS
 import hashlib
 from user import User
-from data_handler_api import read_json_db , write_json_db
+from data_api import read_json_db , write_json_db
 
 app = flask.Flask("RoomiesGoodies") #creates web App
 CORS(app)
@@ -31,6 +32,7 @@ data = read_json_db(users_db)
 if not data:
 	create_first_admin()
 
+#CRUD READ
 #receive user login data from front end
 @app.route("/login" , methods=['POST'])
 def receive_login_data():
@@ -40,7 +42,7 @@ def receive_login_data():
 	data = flask.request.get_json()  
 	username = data.get("username")
 	password = data.get("password")
-
+	print(password)
 	#hash received password to compare with stored hashed password
 	hashed_pass = hash_pass(password)
 
@@ -61,6 +63,7 @@ def receive_login_data():
 	return flask.jsonify({'message': message , 'user_is_Admin' : user_is_admin})  # Respond with a message
 
 
+#CRUD CREATE
 #receive granted user data from front end
 @app.route("/newUserGrant" , methods=['POST'])
 def receive_newuser_grant_data():
@@ -79,27 +82,49 @@ def receive_newuser_grant_data():
 		return flask.jsonify({'message': "0"})
 
 
-
+#CRUD UPDATE
 #receive password of granted user data from front end
 @app.route("/newAccount" , methods=['POST'])
-def receive_newuser_password_data():
-	# Get the JSON newuser username and password sent from the frontend
+def receive_newAccount_password_data():
+	#Get the JSON password and granted username sent from the frontend
 	data = flask.request.get_json()  
-
 	granted_username = data.get("grantedUsername")
 	new_password = data.get("newPassword")
+
+	data_validated = False
 
 	if granted_username != "" and new_password != "":
 		hashed_pass = hash_pass(new_password)
 		#read users from JSON
-		allusers_data = read_json_db("user_auth_db.json")
+		allusers_data = read_json_db(users_db)
 
-		added = False
+		#if user with password already exist
 		for user in allusers_data:
-			if user['granted_username'] == granted_username: # Check if the username exist in DB
-				user['new_password'] = hashed_pass
-				#1 means created successfully
-				return flask.jsonify({'message': "1"})
-			else:
-				#0 means user not exist
-				return flask.jsonify({'message': "0"})
+			if user['username'] == granted_username and user['password'] == hashed_pass:
+				#2 implies user already exists
+				return flask.jsonify({'message': "2"})
+			if user['username'] == granted_username: # Check if the username exist in DB
+				user['password'] = hashed_pass
+				#convert JSON list of objects to string
+				ALL_data_str = json.dumps(allusers_data)
+				delete_record_helper(users_db, ALL_data_str)
+				data_validated = True
+
+		if data_validated:
+			#1 implies data stored successfully
+			return flask.jsonify({'message': "1"})
+		else: 
+			#-1 implies user is not found
+			return flask.jsonify({'message': "-1"})
+	else:
+		#0 means an empty data is sent
+		return flask.jsonify({'message': "0"})
+
+
+#CRUD DELETE
+def delete_record_helper(file_path, data_str):
+	file = open(file_path, 'w')
+	file.truncate(0)
+	data_str.replace('},', '},\n')
+	file.write(data_str)
+	file.close()
