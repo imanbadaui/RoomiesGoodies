@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Account</title>
+    <link rel="stylesheet" type="text/css" href="newaccount_style.css" />
 </head>
+
 <body>
-    <p> Welcome Home Roomie! </p>
-    <form action="/profile" method="get">
+    <div id="header">
+        <p id="newAccountWelcomeMessage"> Welcome Home Roomie! </p>
+    </div>
 
-        <label for="grantedUsername">Enter Granted Username:</label>
-        <input type="text" id="grantedUsername" name="grantedUsername" class="box" required><br><br>
+    <div id="create-new-account-container">
+        <form action="/profile" method="get" id="create-account-form">
 
-        <label for="newRoomiePassword">Enter Password:</label>
-        <input type="password" id="newRoomiePassword" name="newRoomiePassword" class="box" required><br>
+            <label for="grantedUsername">Enter Granted Username:</label>
+            <input type="text" id="grantedUsername" name="grantedUsername" class="box" required><br><br>
 
-        <input type="button" value="Create" id="createButton"> <br>
+            <label for="newRoomiePassword">Enter Password:</label>
+            <input type="password" id="newRoomiePassword" name="newRoomiePassword" class="box" required><br>
 
-        <div id="newAccountConfirmMessage"></div>
+            <div id="footer">
+                <input type="button" value="Create" class = "createaccountButtons" id="createButton"> <br>
+                <div id="newAccountConfirmMessage"></div>
+                <input type="button" value="Go to Profile"  class = "createaccountButtons" id="goToProfileButton">
+            </div>
+        </form>
+    </div>
 
-        <input type="button" value="Go to Profile" id="goToProfileButton">
-    </form>
 
     <script src="newaccount.js"></script>
 </body>
+
 </html>

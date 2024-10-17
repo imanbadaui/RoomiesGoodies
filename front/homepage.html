@@ -5,28 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoomiesGoodies</title>
+    <link rel="stylesheet" type="text/css" href="homepage_style.css" />
+
 </head>
 
 <body>
-    <div id = "loginContainer">
-        <p> Welcome Roomie! &#128522;</p>
-        <form action="/profile" method="get">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" class="box" required><br><br>
 
+    <div id="header">
+        <img id="logo" src="logo.png" alt="Roomies Goodies Logo" width="20%" height="20%">
+    </div>
+
+    <div id="login-container">
+        <form action="/profile" method="get">
+            <div id="loginWelcomeMessage"></div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter your username" name="username" class="box"
+                required><br><br>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" class="box" required><br>
+            <input type="password" id="password" placeholder="Enter your password" name="password" class="box"
+                required><br><br>
 
             <div id="loginErrorMessage"></div>
 
             <a href="/homepage/">forgot password?</a> <br><br>
 
-            <input type="button" value="Log In" id="loginButton"> <br><br>
-            <input type="button" value="Admin" id="adminButton"> <br><br>
-            <input type="button" value="Create New Account" id="createAccountButton">
+            <div id = "homepageLoginButtons"> 
+                <input type="button" value="Create New Account" class = "homepageButtons" id="createAccountButton">
+                <input type="button" value="Log In" class = "homepageButtons" id="loginButton">
+                <input type="button" value="Admin" id="adminButton">
+            </div>
 
         </form>
     </div>
+
+    <div id="footer">
+        <P id="slogan">Who ate my sauce?</P>
+    </div>
+
 
     <script src="userauthscript.js"></script>
 </body>

@@ -5,6 +5,7 @@ const loginButton = document.getElementById("loginButton");
 const adminButton = document.getElementById("adminButton");
 const createAccountButton = document.getElementById("createAccountButton");
 const loginErrorMessage = document.getElementById("loginErrorMessage");
+const loginWelcomeMessage = document.getElementById("loginWelcomeMessage");
 
 let xhrLoginAuth = new XMLHttpRequest();
 
@@ -93,4 +94,9 @@ adminButton.addEventListener("click", function () {
 
 createAccountButton.addEventListener("click", function(){
     window.location.href = "newaccount.html";
+});
+
+
+username.addEventListener("click", function(){
+    loginWelcomeMessage.innerHTML = "<p> Welcome Roomie! </p>";
 });

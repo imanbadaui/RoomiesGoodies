@@ -126,6 +126,6 @@ def receive_newAccount_password_data():
 def delete_record_helper(file_path, data_str):
 	file = open(file_path, 'w')
 	file.truncate(0)
-	data_str.replace('},', '},\n')
+	#data_str.replace('},', '},\n')
 	file.write(data_str)
 	file.close()
