@@ -93,30 +93,38 @@ def receive_newAccount_password_data():
 	new_password = data.get("newPassword")
 
 	data_validated = False
+	user_exists = False
 
 	if granted_username != "" and new_password != "":
-		hashed_pass = hash_pass(new_password)
 		#read users from JSON
 		allusers_data = read_json_db(users_db)
-
+		hashed_pass = hash_pass(new_password)
 		#if user with password already exist
 		for user in allusers_data:
-			if user['username'] == granted_username and user['password'] == hashed_pass:
+			if user['username'] == granted_username and user['password'] != "":
 				#2 implies user already exists
-				return flask.jsonify({'message': "2"})
-			if user['username'] == granted_username: # Check if the username exist in DB
-				user['password'] = hashed_pass
-				#convert JSON list of objects to string
-				ALL_data_str = json.dumps(allusers_data)
-				delete_record_helper(users_db, ALL_data_str)
-				data_validated = True
+				user_exists= True
+				break
+			elif user['username'] == granted_username: # Check if the username exist in DB
+				if user['password'] == "": #avoid re-update password
+					user['password'] = hashed_pass
+					#convert JSON list of objects to string
+					ALL_data_str = json.dumps(allusers_data)
+					delete_record_helper(users_db, ALL_data_str)
+					data_validated = True
+					break
+				else: 
+					user_exists= True
 
-		if data_validated:
-			#1 implies data stored successfully
-			return flask.jsonify({'message': "1"})
-		else: 
-			#-1 implies user is not found
-			return flask.jsonify({'message': "-1"})
+		if user_exists:
+			return flask.jsonify({'message': "2"})
+		else:
+			if data_validated:
+				#1 implies data stored successfully
+				return flask.jsonify({'message': "1"})
+			else: 
+				#-1 implies user is not found
+				return flask.jsonify({'message': "-1"})
 	else:
 		#0 means an empty data is sent
 		return flask.jsonify({'message': "0"})
