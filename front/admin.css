@@ -1,0 +1,15 @@
+
+body {
+    background-color: #f4c524;
+}
+
+#main-container {
+    background-color: #f6f6f6;
+     padding-top: 4%;
+     padding-bottom: 4%;
+     border-radius: 20px;
+     width: 40%;
+     height: 80%;
+     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); 
+     margin-top: 1%;
+ }

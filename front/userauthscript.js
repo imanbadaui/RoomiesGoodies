@@ -98,5 +98,5 @@ createAccountButton.addEventListener("click", function(){
 
 
 username.addEventListener("click", function(){
-    loginWelcomeMessage.innerHTML = "<p> Welcome Roomie! </p>";
+    loginWelcomeMessage.innerHTML = "<p> Ay Ay, Roomie!</p>";
 });
