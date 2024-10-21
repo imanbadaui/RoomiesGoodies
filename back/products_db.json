@@ -1,29 +1,52 @@
 [
     {
-        "name": "Tomato",
-        "owner": "immz",
         "code": "54",
+        "name": "tomato",
+        "owner": "Immz",
         "price": 23.5,
+        "type" : "vege",
         "quantity": 5,
         "unit": "pieces",
-        "access": "personal"
+        "access": 1
     },
     {
-        "name": "mango",
-        "owner": "Souz",
+        "code": "32",
+        "name": "apple",
+        "owner": "noha",
+        "price": 23.5,
+        "type" : "fruit",
+        "quantity": 5,
+        "unit": "pieces",
+        "access": 2
+    },
+    {
+        "code": "80",
+        "name": "apple",
+        "owner": "Immz",
+        "price": 200,
+        "type" : "fruit",
+        "quantity": 5,
+        "unit": "pieces",
+        "access": 1
+    },
+    {
         "code": "74",
+        "name": "mango",
+        "owner": "laila",
         "price": 80,
+        "type" : "fruit",
         "quantity": 8,
         "unit": "pieces",
-        "access": "shared"
+        "access": 2
     },
     {
-        "name": "orange juice",
-        "owner": "badoo",
         "code": "23",
+        "name": "orange juice",
+        "owner": "loli",
         "price": 55,
+        "type" : "juice",
         "quantity": 1,
-        "unit": "L",
-        "access": "personal"
+        "unit": "liter",
+        "access": 2
     }
 ]
