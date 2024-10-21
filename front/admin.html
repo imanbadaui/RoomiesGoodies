@@ -11,6 +11,14 @@
 </head>
 
 <body>
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h5></h5>
+          <p></p>
+        </div>
+      </div>
+
     <div id="main-container" class="container-fluid"
         style="display: flex;  flex-direction: column; justify-content: center; align-items: center;">
 
@@ -18,7 +26,7 @@
             style="display: flex;  flex-direction: column; justify-content: center; align-items: center; flex-wrap:wrap;">
 
             <form action="/profile" method="get">
-                <h1 class="container-fluid" id="allusers_button">Admin Access</h1> <br>
+                <h1 class="container-fluid" id="adminH1">Admin Access</h1> <br>
                 <input type="button" value="List of all usernames" class="btn"
                     style="background-color: #f4c524; color: black; width: 100%;"
                     onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
@@ -36,10 +44,10 @@
                 <br>
 
                 <div class="custom-paragraph mb-4" id="newUserConfirmMessage"></div>
-                <input type="button" value="Go to Profile" class="btn"
+                <input type="button" value="Go to Dashboard" class="btn"
                     style="background-color: #f4c524; color: black; width: 100%;"
                     onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
-                    id="goToProfileButton">
+                    id="goToDashboardButton">
             </form>
         </div>
     </div>

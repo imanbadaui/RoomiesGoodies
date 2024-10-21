@@ -18,14 +18,17 @@
                 <h3 class = "container-fluid" id= "newAccountWelcomeMessage"> Welcome Home, Roomie! </h3> <br>
                 <input type="text"  class="form-control" id="grantedUsername" placeholder="Enter granted username" name="grantedUsername" class="box" required><br>
                 <input type="password" class="form-control"   id="newRoomiePassword" placeholder="Enter password" name="newRoomiePassword" class="box" required><br>
-                <input type="password"  class="form-control"  id="rePassword" placeholder="Re-enter password" name="rePassword" class="box" required><br><br>
+                <input type="password"  class="form-control"  id="rePassword" placeholder="Re-enter password" name="rePassword" class="box" required><br>
+               
+                <div class="spinner-border spinner-border-sm" id ="loader" role="status" style="display: none;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+               
 
                 <input type="button" value="Create" class="btn" 
                 style="background-color: #f4c524; color: black; width: 100%;" onmouseover="this.style.color='#f6f6f6';"  onmouseout="this.style.color='black';" id="createButton"> <br>
-              
+               
                 <div  class="custom-paragraph mb-4" id="newAccountConfirmMessage"></div>
-                <input type="button" value="Go to Profile"  class="btn" 
-                style="background-color: #f4c524; color: black; width: 100%;" onmouseover="this.style.color='#f6f6f6';"  onmouseout="this.style.color='black';" id="createButton" id="goToProfileButton">
             </form>
         </div>
     

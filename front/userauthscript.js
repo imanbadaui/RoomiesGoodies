@@ -6,6 +6,8 @@ const adminButton = document.getElementById("adminButton");
 const createAccountButton = document.getElementById("createAccountButton");
 const loginErrorMessage = document.getElementById("loginErrorMessage");
 const loginWelcomeMessage = document.getElementById("loginWelcomeMessage");
+const loader = document.getElementById("loader");
+const forgotpassword = document.getElementById("forgotpassword");
 
 let xhrLoginAuth = new XMLHttpRequest();
 
@@ -47,7 +49,7 @@ function ReceiveLoginAuthResponse() {
 }
 
 
-/* if loginbutton: send request, recieve answer, redirect to profile.
+/* if loginbutton: send request, recieve answer, redirect to dashboard.
 if admin button: send request, receive answer, open admin template + when press grant */
 //admin and user can login but only admin can go to admin page.
 loginButton.addEventListener("click", function () {
@@ -57,7 +59,18 @@ loginButton.addEventListener("click", function () {
         if (xhrLoginAuth.status === 200) {
             serverResponse = ReceiveLoginAuthResponse();
             if (serverResponse == 1) {
-                window.location.href = "profile.html";
+                //store correct username in local storage
+                if (username) {
+                    localStorage.setItem("username", username.value);
+                }
+               
+                loader.style.display = 'inline-block';
+                //sleep for 5 seconds before redirection
+                setTimeout(function () {
+                    loader.style.display = 'none';
+                    window.location.href = "products.html";
+                }, 1000);
+
             } else if (serverResponse == -1) {
                 loginErrorMessage.innerHTML = "<p> You're not a roomie. Enter a valid username. </p>";
             } else if (serverResponse == 0) {
@@ -67,7 +80,6 @@ loginButton.addEventListener("click", function () {
             loginErrorMessage.innerHTML = "<p> An error occurred while logging in. Please try again. </p>";
         }
     }
-
 });
 
 adminButton.addEventListener("click", function () {
@@ -76,7 +88,15 @@ adminButton.addEventListener("click", function () {
         if (xhrLoginAuth.status === 200) {
             serverResponse = ReceiveLoginAuthResponse();
             if (serverResponse == 1 && isAdmin) {
-                window.location.href = "admin.html";
+                  //store correct username in local storage
+                  localStorage.setItem("username", username.value);
+
+                loader.style.display = 'inline-block';
+                //sleep for 5 seconds before redirection
+                setTimeout(function () {
+                    loader.style.display = 'none';
+                    window.location.href = "admin.html";
+                }, 1000);
             } else if (serverResponse == -1) {
                 loginErrorMessage.innerHTML = "<p> You're not a roomie. Enter a valid username. </p>";
             } else if (serverResponse == 0) {
@@ -88,15 +108,16 @@ adminButton.addEventListener("click", function () {
             loginErrorMessage.innerHTML = "<p> An error occurred while logging in. Please try again. </p>";
         }
     }
-  
+
 });
 
 
-createAccountButton.addEventListener("click", function(){
+createAccountButton.addEventListener("click", function () {
     window.location.href = "newaccount.html";
 });
 
 
-username.addEventListener("click", function(){
+username.addEventListener("click", function () {
     loginWelcomeMessage.innerHTML = "<p> Ay Ay, Roomie!</p>";
 });
+
