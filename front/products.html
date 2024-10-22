@@ -13,18 +13,24 @@
 <body style="background-color: #f6f6f6;">
     <div class="container-fluid">
 
-        <div class="container-fluid" style="display: flex; justify-content: flex-start;">
-            <img id="logo" src="wordlogo.png" alt="Roomies Goodies Logo" class="img-fluid"
-                style="cursor: pointer; width: 20%; height:20%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 2%;">
+
+            <div style="display: flex; justify-content:flex-start; width: fit-content;">
+                <img id="logo" src="wordlogo.png" alt="Roomies Goodies Logo"
+                    style="cursor: pointer; width : 60%; height : 60%; margin-top: 6%; margin-left: 2%;">
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; width: fit-content;">
+                <img id="profilePhoto" src="profilephoto.png" alt="profile photo"
+                    style="cursor: pointer; width: 16%; height: 16%; margin-right: 2%; margin-top: 6%;">
+                <button class="btn" style="background-color: #f4c524; color: black; width: fit-content; height: 20%; margin-top: 8%; margin-right: 2%;"
+                    onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
+                    id="logoutButton">Log
+                    Out</button>
+            </div>
+
         </div>
 
-        <div class="container-fluid" style="display: flex; justify-content: flex-end;">
-            <img id="profilePhoto" src="profilephoto.png" alt="profile photo" class="img-fluid"
-                style="cursor: pointer; width: 4%; height:4%;">
-            <button class="btn" style="background-color: #f4c524; color: black;"
-                onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" id="logoutButton">Log
-                Out</button>
-        </div>
 
         <div class="container-fluid" role="search" id="searchForm">
             <div class="form-group me-2">
@@ -46,15 +52,15 @@
         <div id="products-container" class="container-fluid"
             style="display: flex;justify-content: center; flex-direction:column;">
             <h1 class="my-4"> All Products</h1>
-            <button class="btn" style="background-color: #f4c524; color: black; width: 15%;"
+            <button class="btn" style="background-color: #f4c524; color: black;  width: fit-content;; margin-bottom: 1%;"
                 onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" type="button"
                 id="AddButton">Add a new product</button> <br>
-            <button class="btn" style="background-color: #e7688b; color: black; display: none; width: 15%;"
+            <button class="btn" style="background-color: #e7688b; color: black; display: none; width: 15%; margin-bottom: 1%;"
                 onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
                 id="saveChangesButton">Save Changes</button>
 
             <div class="container-fluid" id="crudMesssage"> </div>
-            
+
             <table class="table table-bordered table-striped" id="productsTable">
                 <thead class="thead-dark">
                     <tr>
