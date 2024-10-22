@@ -195,7 +195,7 @@ def receive_new_password_data():
 	else:
 		#0 means an empty data is sent
 		return flask.jsonify({'message': "0"})
-
+	
 
 
 
@@ -211,10 +211,10 @@ def allproducts_request():
 
 	for product in allproducts_data:
 		selected_product = Product(product['code'], product['name'],product['owner'], product['price'], product['type'] ,product['quantity'],  product['unit'], product['access'])
-		products_list.append(selected_product)
+		serialized_product = selected_product.to_dict()
+		products_list.append(serialized_product)
 
-	serialized_products = [product.to_dict() for product in products_list]
-	return flask.jsonify(serialized_products)
+	return flask.jsonify(products_list)
 
 
 
@@ -251,5 +251,23 @@ def receive_search_query():
 
 	serialized_products = [product.to_dict() for product in sent_products_list]
 	return flask.jsonify(serialized_products)
+
+
+
+
+
+
+##### Write one product API #####
+#CRUD CREATE.
+@app.route("/writeProduct" , methods=['POST'])
+def receive_product():
+	data = flask.request.get_json()
+	new_product = data.get("new_product")
+	write_json_db(products_db ,new_product)
+	#1 means product inserted successfully in DB
+	return flask.jsonify(1)
+	
+	
+
 
 

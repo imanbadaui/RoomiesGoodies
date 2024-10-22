@@ -6,14 +6,24 @@ const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 let tbody = document.querySelector('tbody');
 let searchType = document.querySelector('input[name="searchType"]:checked').value;
+const AddButton = document.getElementById("AddButton");
+const crudMesssage = document.getElementById("crudMesssage");
+const saveChangesButton = document.getElementById("saveChangesButton");
 
 let xhrRead = new XMLHttpRequest();
-
 //sends a request to read all products in DB 
 function send_read_request() {
     xhrRead.open("POST", "http://127.0.0.1:5000/readProducts", true);
     xhrRead.setRequestHeader("Content-Type", "application/json");
-    xhrRead.send(); 
+    xhrRead.send();
+}
+
+let xhrWrite = new XMLHttpRequest();
+function send_write_request(newProduct) {
+    xhrWrite.open("POST", "http://127.0.0.1:5000/writeProduct", true);
+    xhrWrite.setRequestHeader("Content-Type", "application/json");
+    //sends new product as a string.
+    xhrWrite.send(JSON.stringify({"new_product" : newProduct}));
 }
 
 function populateAllProducts() {
@@ -24,7 +34,6 @@ function populateAllProducts() {
             let response = JSON.parse(xhrRead.response);
             //result array structure:: access: 1, code: "54", name: "tomato" , owner: "Immz", price: 23.5, quantity: 5, type: "fruit", unit: "pieces"
             products = response;
-            console.log(products);
             if (tbody.innerHTML != "") {
                 deleteAll();
             }
@@ -61,7 +70,7 @@ function populate(products) {
     accessToString = "";
 
     products.forEach(product => {
-        //converts access from an indicator number to a meaningful string.
+        //converts access fr;om an indicator number to a meaningful string.
         if (product.access == 1) {
             accessToString = "personal"
         } else if (product.access == 2) {
@@ -81,42 +90,10 @@ function populate(products) {
     });
 }
 
-
 //function to delete all records
 function deleteAll() {
     tbody.innerHTML = "";
 }
-
-//function to add a new record to the existing table.
-function add(products) {
-    // code, owner, name, type, price, quantity, unit, access
-    //Autogenerate a random code that doesn't repeat in DB
-    accessToString = "";
-
-    products.forEach(product => {
-        //converts access from an indicator number to a meaningful string.
-        if (product.access == 1) {
-            accessToString = "personal"
-        } else if (product.access == 2) {
-            accessToString = "shared"
-        }
-        let row = `<tr>
-                          <td>${product.code}</td>
-                          <td>${product.name}</td>
-                          <td>${product.owner}</td>
-                          <td>${product.price}</td>
-                          <td>${product.type}</td>
-                          <td>${product.quantity}</td>
-                          <td>${accessToString}</td>
-                          <td>${product.unit}</td>
-                       </tr>`;
-        tbody.innerHTML += row;
-    });
-}
-//function to update a record in existing table.
-
-//function to delete a record from an existing table.
-
 
 resultProducts = []
 searchButton.addEventListener("click", function () {
@@ -125,16 +102,81 @@ searchButton.addEventListener("click", function () {
     xhrQueryAuth.onload = function () {
         if (xhrQueryAuth.status === 200) {
             let response = JSON.parse(xhrQueryAuth.response);
-            //result array structure:: access: 1, code: "54", name: "tomato" , owner: "Immz", price: 23.5, quantity: 5, type: "fruit", unit: "pieces"
+            //response is array of Object of this structure {access: 1, code: "54", name: "tomato" , owner: "Immz", price: 23.5, quantity: 5, type: "fruit", unit: "pieces"}
             products = response;
-            if (tbody.innerHTML != "") {
+            if (searchInput.value != "" && tbody.innerHTML != "") {
                 deleteAll();
                 populate(products);
             }
-
         }
     }
 });
+
+//function to add a record to existing table.
+//generates a random code for the new product that is unique.
+//check username in local storage = owner, if not you can't add product that's not yours.
+function addRecord() {
+    //that makes max number of products in db is 1000.
+    let randomCode = Math.floor(Math.random() * 1000) + 1;
+    let row = `<tr>
+                      <td >${randomCode} </td>
+                      <td contenteditable="true"> </td>
+                      <td contenteditable="true"> </td>
+                      <td contenteditable="true"> </td>
+                      <td contenteditable="true"> </td>
+                      <td contenteditable="true"> </td>
+                      <td contenteditable="true"> </td>
+                      <td contenteditable="true"> </td>
+                   </tr>`;
+
+    tbody.insertAdjacentHTML('afterbegin', row);
+
+    let newRow = tbody.firstElementChild;
+
+    //selects columns. assumes user will add all right values in right places 
+    let cells = newRow.getElementsByTagName('td');
+
+    let newProduct = [];
+    saveChangesButton.style.display = "inline-block";
+    saveChangesButton.addEventListener("click", function () {
+        //loops over cells of record and pushes them to an array
+        for (let i = 0; i < cells.length; i++) {
+            newProduct.push(cells[i].innerText.trim());
+        }
+
+        send_write_request(newProduct);
+
+        newRow.remove();
+
+        row = `<tr>
+                      <td >${randomCode} </td>
+                      <td >${newProduct[1]} </td>
+                      <td >${newProduct[2]} </td>
+                      <td>${newProduct[3]} </td>
+                      <td >${newProduct[4]} </td>
+                      <td >${newProduct[5]} </td>
+                      <td >${newProduct[6]} </td>
+                      <td >${newProduct[7]} </td>
+                   </tr>`;
+
+        tbody.insertAdjacentHTML('afterbegin', row);
+    });
+}
+
+AddButton.addEventListener("click", function () {
+    addRecord();
+
+});
+
+//function to update a record in existing table.
+function updateRecord() {
+
+}
+
+//function to delete a record from an existing table.
+function deleteRecord() {
+
+}
 
 
 logo.addEventListener("click", function () {
