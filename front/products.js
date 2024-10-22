@@ -9,7 +9,9 @@ let searchType = document.querySelector('input[name="searchType"]:checked').valu
 const AddButton = document.getElementById("AddButton");
 const crudMesssage = document.getElementById("crudMesssage");
 const saveChangesButton = document.getElementById("saveChangesButton");
-
+const updateButton = document.getElementById("updateButton");
+const deleteButton = document.getElementById("deleteButton");
+const updatedCodeInput = document.getElementById("updatedCodeInput");
 
 let xhrRead = new XMLHttpRequest();
 //sends a request to read all products in DB 
@@ -68,15 +70,16 @@ function populate(products) {
         } else if (product.access == 2) {
             accessToString = "shared"
         }
+
         let row = `<tr>
-                      <td>${product.code}</td>
-                      <td>${product.name}</td>
-                      <td>${product.owner}</td>
-                      <td>${product.price}</td>
-                      <td>${product.type}</td>
-                      <td>${product.quantity}</td>
-                      <td>${accessToString}</td>
-                      <td>${product.unit}</td>
+                    <td>${product.code}</td>
+                    <td>${product.name}</td>
+                    <td>${product.owner}</td>
+                    <td>${product.price}</td>
+                    <td>${product.type}</td>
+                    <td>${product.quantity}</td>
+                    <td>${accessToString}</td>
+                    <td>${product.unit}</td>
                    </tr>`;
         tbody.innerHTML += row;
     });
@@ -136,9 +139,9 @@ function addRecord() {
     let newRow;
     let cells;
     let newProduct = [];
-    saveChangesButton.style.display = "inline-block";
+    
+    saveChangesButton.style.display = "block";
     saveChangesButton.addEventListener("click", function () {
-
         newRow = tbody.firstElementChild;
 
         //selects columns. assumes user will add all right values in right places 
@@ -151,12 +154,12 @@ function addRecord() {
             if (cells[i].innerText.trim() == "") {
                 dataNotComplete = true;
                 break;
-            }else{
+            } else {
                 newProduct.push(cells[i].innerText.trim());
-            }    
+            }
         }
         if (dataNotComplete) {
-            crudMesssage.innerHTML= "<p> Please fill all fields. </p>"
+            crudMesssage.innerHTML = "<p> Please fill all fields. </p>"
         } else {
             send_write_request(newProduct[0], newProduct[1], newProduct[2], newProduct[3], newProduct[4], newProduct[5], newProduct[6], newProduct[7]);
 
@@ -176,26 +179,54 @@ function addRecord() {
             tbody.insertAdjacentHTML('afterbegin', row);
             saveChangesButton.style.display = "none";
             crudMesssage.style.display = "none";
+            AddButton.style.backgroundColor = '#f4c524';
         }
 
     });
 }
 
 AddButton.addEventListener("click", function () {
+    AddButton.style.backgroundColor = 'lightblue';
     addRecord();
-
 });
 
+
+
+
+let updatedRecordCode = "";
 //function to update a record in existing table.
 function updateRecord() {
 
+    updateButton.addEventListener("click", function () {
+        updateButton.style.backgroundColor = 'lightblue';
+        updatedCodeInput.style.display = "block";
+        saveChangesButton.style.display = "block";
+       
+        updatedRecordCode = updatedCodeInput.value;
+    });
+
+    saveChangesButton.addEventListener("click", function(){
+        updateButton.style.backgroundColor = '#f4c524';
+    });
 }
+updateRecord();
 
 //function to delete a record from an existing table.
 function deleteRecord() {
 
-}
+    deleteButton.addEventListener("click", function () {
+        deleteButton.style.backgroundColor = 'lightblue';
+        updatedCodeInput.style.display = "block";
+        saveChangesButton.style.display = "block";
+        updatedRecordCode = updatedCodeInput.value;
 
+    });
+
+    saveChangesButton.addEventListener("click", function(){
+        updateButton.style.backgroundColor = '#f4c524';
+    });
+}
+deleteRecord();
 
 logo.addEventListener("click", function () {
     window.location.href = "products.html";
