@@ -46,20 +46,14 @@
         <div id="products-container" class="container-fluid"
             style="display: flex;justify-content: center; flex-direction:column;">
             <h1 class="my-4"> All Products</h1>
-            <button class="btn" style="background-color: #f4c524; color: black;"
+            <button class="btn" style="background-color: #f4c524; color: black; width: 15%;"
                 onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" type="button"
-                id="AddButton">Add a product</button>
-            <button class="btn" style="background-color: #f4c524; color: black;"
-                onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" type="button"
-                id="updateButton">Update a product</button>
-            <button class="btn" style="background-color: #f4c524; color: black;"
-                onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" type="button"
-                id="deleteButton">Delete a product</button>
-            <button class="btn" style="background-color: #e7688b; color: black; display: none; "
+                id="AddButton">Add a new product</button> <br>
+            <button class="btn" style="background-color: #e7688b; color: black; display: none; width: 15%;"
                 onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
                 id="saveChangesButton">Save Changes</button>
 
-            <div id="crudMesssage"> </div>
+            <div class="container-fluid" id="crudMesssage"> </div>
             
             <table class="table table-bordered table-striped" id="productsTable">
                 <thead class="thead-dark">

@@ -22,7 +22,7 @@ class Product:
 
     def to_dict(self):
         return {
-            'code':  self.product_code,
+            'code': self.product_code,
             'name': self.product_name,
             'owner': self.product_owner,
             'price': self.product_price,

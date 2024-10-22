@@ -49,4 +49,59 @@
         "unit": "liter",
         "access": 2
     }
+,
+{
+"code": "388",
+ "name": "mango",
+ "owner": "noha",
+ "price": "150",
+ "type": "fruit",
+ "quantity": "3",
+ "unit": "pieces",
+ "access": "shared"
+}
+,
+{
+"code": "974",
+ "name": "cucumber",
+ "owner": "Immz",
+ "price": "45",
+ "type": "fruit",
+ "quantity": "10",
+ "unit": "pieces",
+ "access": "shared"
+}
+,
+{
+"code": "685",
+ "name": "cheese",
+ "owner": "Sarah",
+ "price": "78",
+ "type": "dairy",
+ "quantity": ".25",
+ "unit": "pieces",
+ "access": "personal"
+}
+,
+{
+"code": "553",
+ "name": "garlic",
+ "owner": "Mostafa",
+ "price": "230",
+ "type": "vege",
+ "quantity": "4",
+ "unit": "packs",
+ "access": "shared"
+}
+,
+{
+"code": "184",
+ "name": "mango",
+ "owner": "Immz",
+ "price": "167",
+ "type": "fruit",
+ "quantity": "6",
+ "unit": "pieces",
+ "access": "shared"
+}
 ]

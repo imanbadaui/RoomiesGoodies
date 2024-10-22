@@ -10,20 +10,13 @@ const AddButton = document.getElementById("AddButton");
 const crudMesssage = document.getElementById("crudMesssage");
 const saveChangesButton = document.getElementById("saveChangesButton");
 
+
 let xhrRead = new XMLHttpRequest();
 //sends a request to read all products in DB 
 function send_read_request() {
     xhrRead.open("POST", "http://127.0.0.1:5000/readProducts", true);
     xhrRead.setRequestHeader("Content-Type", "application/json");
     xhrRead.send();
-}
-
-let xhrWrite = new XMLHttpRequest();
-function send_write_request(newProduct) {
-    xhrWrite.open("POST", "http://127.0.0.1:5000/writeProduct", true);
-    xhrWrite.setRequestHeader("Content-Type", "application/json");
-    //sends new product as a string.
-    xhrWrite.send(JSON.stringify({"new_product" : newProduct}));
 }
 
 function populateAllProducts() {
@@ -53,7 +46,6 @@ searchTypeRadios.forEach(radio => {
 });
 
 let xhrQueryAuth = new XMLHttpRequest();
-
 function send_search_query() {
 
     const searchValue = searchInput.value;
@@ -112,11 +104,21 @@ searchButton.addEventListener("click", function () {
     }
 });
 
+
+
+let xhrWrite = new XMLHttpRequest();
+function send_write_request(code, name, owner, price, type, quantity, access, unit) {
+    xhrWrite.open("POST", "http://127.0.0.1:5000/writeProduct", true);
+    xhrWrite.setRequestHeader("Content-Type", "application/json");
+    //sends new product as a string.
+    xhrWrite.send(JSON.stringify({ "code": code, "name": name, "owner": owner, "price": price, "type": type, "quantity": quantity, "access": access, "unit": unit }));
+}
+
 //function to add a record to existing table.
 //generates a random code for the new product that is unique.
 //check username in local storage = owner, if not you can't add product that's not yours.
 function addRecord() {
-    //that makes max number of products in db is 1000.
+    //that makes max number of products in db is 1000. generates codes of 3 numbers only.
     let randomCode = Math.floor(Math.random() * 1000) + 1;
     let row = `<tr>
                       <td >${randomCode} </td>
@@ -131,35 +133,51 @@ function addRecord() {
 
     tbody.insertAdjacentHTML('afterbegin', row);
 
-    let newRow = tbody.firstElementChild;
-
-    //selects columns. assumes user will add all right values in right places 
-    let cells = newRow.getElementsByTagName('td');
-
+    let newRow;
+    let cells;
     let newProduct = [];
     saveChangesButton.style.display = "inline-block";
     saveChangesButton.addEventListener("click", function () {
+
+        newRow = tbody.firstElementChild;
+
+        //selects columns. assumes user will add all right values in right places 
+        cells = newRow.getElementsByTagName('td');
+
+        dataNotComplete = false;
+
         //loops over cells of record and pushes them to an array
         for (let i = 0; i < cells.length; i++) {
-            newProduct.push(cells[i].innerText.trim());
+            if (cells[i].innerText.trim() == "") {
+                dataNotComplete = true;
+                break;
+            }else{
+                newProduct.push(cells[i].innerText.trim());
+            }    
+        }
+        if (dataNotComplete) {
+            crudMesssage.innerHTML= "<p> Please fill all fields. </p>"
+        } else {
+            send_write_request(newProduct[0], newProduct[1], newProduct[2], newProduct[3], newProduct[4], newProduct[5], newProduct[6], newProduct[7]);
+
+            newRow.remove();
+
+            row = `<tr>
+                          <td >${randomCode} </td>
+                          <td >${newProduct[1]} </td>
+                          <td >${newProduct[2]} </td>
+                          <td>${newProduct[3]} </td>
+                          <td >${newProduct[4]} </td>
+                          <td >${newProduct[5]} </td>
+                          <td >${newProduct[6]} </td>
+                          <td >${newProduct[7]} </td>
+                       </tr>`;
+
+            tbody.insertAdjacentHTML('afterbegin', row);
+            saveChangesButton.style.display = "none";
+            crudMesssage.style.display = "none";
         }
 
-        send_write_request(newProduct);
-
-        newRow.remove();
-
-        row = `<tr>
-                      <td >${randomCode} </td>
-                      <td >${newProduct[1]} </td>
-                      <td >${newProduct[2]} </td>
-                      <td>${newProduct[3]} </td>
-                      <td >${newProduct[4]} </td>
-                      <td >${newProduct[5]} </td>
-                      <td >${newProduct[6]} </td>
-                      <td >${newProduct[7]} </td>
-                   </tr>`;
-
-        tbody.insertAdjacentHTML('afterbegin', row);
     });
 }
 

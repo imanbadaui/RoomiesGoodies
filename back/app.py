@@ -262,12 +262,30 @@ def receive_search_query():
 @app.route("/writeProduct" , methods=['POST'])
 def receive_product():
 	data = flask.request.get_json()
-	new_product = data.get("new_product")
-	write_json_db(products_db ,new_product)
+	code = data.get("code")
+	name = data.get("name")
+	owner = data.get("owner")
+	price = data.get("price")
+	type = data.get("type")
+	quantity = data.get("quantity")
+	access = data.get("access")
+	unit = data.get("unit")
+
+	new_product = Product(code,name,owner,price,type,quantity,unit,access)
+	new_product_dict = new_product.to_dict()
+	write_json_db(products_db ,new_product_dict)
 	#1 means product inserted successfully in DB
 	return flask.jsonify(1)
-	
-	
 
 
 
+
+##### Update one product API #####
+#CRUD UPDATE.
+
+
+
+
+
+##### Delete one product API #####
+#CRUD DELETE.
