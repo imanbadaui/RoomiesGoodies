@@ -63,7 +63,7 @@ loginButton.addEventListener("click", function () {
                 if (username) {
                     localStorage.setItem("username", username.value);
                 }
-               
+
                 loader.style.display = 'inline-block';
                 //sleep for 5 seconds before redirection
                 setTimeout(function () {
@@ -90,7 +90,6 @@ adminButton.addEventListener("click", function () {
             if (serverResponse == 1 && isAdmin) {
                   //store correct username in local storage
                   localStorage.setItem("username", username.value);
-
                 loader.style.display = 'inline-block';
                 //sleep for 5 seconds before redirection
                 setTimeout(function () {
