@@ -47,6 +47,7 @@ XMLHttpRequest APIs.
 ## Prerequisites
 
 You'll need to install Flask and Flask-CORS for this project to work.
+You'll need to run the server from the Live Server Extension in VS code.
 
 ## Project Requirements
 ✅ My project is available on GitHub.
@@ -68,5 +69,4 @@ To run the server, use Git Bash:
 
 ```bash
 FLASK_APP=app.py flask run
-
-
+Run the front end from the Live Server extension.
