@@ -1,0 +1,17 @@
+#productsTable th, 
+#productsTable td {
+    border-radius: 10px;
+    padding: 8px; 
+    border: 1px solid #ddd;
+}
+
+
+#productsTable {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+thead {
+    
+    color: white;
+}
