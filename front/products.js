@@ -49,6 +49,7 @@ searchTypeRadios.forEach(radio => {
 });
 
 let xhrQueryAuth = new XMLHttpRequest();
+//sends a search request to backend to find a product.
 function send_search_query() {
 
     const searchValue = searchInput.value;
@@ -111,6 +112,7 @@ searchButton.addEventListener("click", function () {
 
 
 let xhrWrite = new XMLHttpRequest();
+//sends request to backend to write a new product or updating an existing product.
 function send_write_request(code, name, owner, price, type, quantity, access, unit) {
     xhrWrite.open("POST", "http://127.0.0.1:5000/writeProduct", true);
     xhrWrite.setRequestHeader("Content-Type", "application/json");
@@ -126,13 +128,13 @@ function addRecord() {
     let randomCode = Math.floor(Math.random() * 1000) + 1;
     let row = `<tr>
                       <td >${randomCode} </td>
-                      <td contenteditable="true"> </td>
-                      <td contenteditable="true"> </td>
-                      <td contenteditable="true"> </td>
-                      <td contenteditable="true"> </td>
-                      <td contenteditable="true"> </td>
-                      <td contenteditable="true"> </td>
-                      <td contenteditable="true"> </td>
+                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
                    </tr>`;
 
     tbody.insertAdjacentHTML('afterbegin', row);
@@ -192,13 +194,10 @@ AddButton.addEventListener("click", function () {
 });
 
 
-
-
-let updatedRecordCode = "";
 //function to update a record in existing table.
 function updateRecord() {
     let selected_row;
-
+    let updatedRecordCode = "";
     updateButton.addEventListener("click", function () {
         updateButton.style.backgroundColor = 'lightblue';
 
@@ -221,7 +220,7 @@ function updateRecord() {
                     tbody.insertBefore(selected_row, tbody.firstChild);
                     for (let i = 1; i < selected_row.cells.length; i++) {
                         selected_row.cells[i].setAttribute('contenteditable', 'true');
-                        selected_row.cells[i].style.backgroundColor = '#ffdd6a';
+                        selected_row.cells[i].style.backgroundColor = 'lightblue';
                     }
                 }
             });
@@ -273,10 +272,24 @@ function updateRecord() {
 
 updateRecord();
 
+
+
+let xhrDelete = new XMLHttpRequest();
+//send product code to backend to be deleted
+function send_delete_request(deletedRecordCode) {
+    xhrDelete.open("POST", "http://127.0.0.1:5000//deleteProduct", true);
+    xhrDelete.setRequestHeader("Content-Type", "application/json");
+    //sends new product as a string.
+    xhrDelete.send(JSON.stringify({ "deleted_record_code": deletedRecordCode}));
+}
+
+
+
 //function to delete a record from an existing table.
 function deleteRecord() {
     let selected_row;
-
+    let updatedRecordCode = "";
+    let deletedRecordCode = "";
     deleteButton.addEventListener("click", function () {
         deleteButton.style.backgroundColor = 'lightblue';
         updatedCodeInput.style.display = "block";
@@ -294,10 +307,11 @@ function deleteRecord() {
                 if (row_code == updatedRecordCode) {
                     //to get  wider scope to be used outside this event listener.
                     selected_row = row;
+                    deletedRecordCode = row_code;
                     let tbody = selected_row.parentNode;
                     tbody.insertBefore(selected_row, tbody.firstChild);
                     for (let i = 1; i < selected_row.cells.length; i++) {
-                        selected_row.cells[i].style.backgroundColor = '#ff6a6a';
+                        selected_row.cells[i].style.backgroundColor = '#ffcccb';
                     }
                 }
             });
@@ -307,7 +321,7 @@ function deleteRecord() {
             //delete it from frontend
             selected_row.remove();
             //delete it from backend
-
+            send_delete_request(deletedRecordCode);
             saveChangesButton.style.display = "none";
             crudMesssage.style.display = "none";
             updatedCodeInput.style.display = "none";
@@ -316,6 +330,7 @@ function deleteRecord() {
         });
     });
 }
+
 deleteRecord();
 
 logo.addEventListener("click", function () {

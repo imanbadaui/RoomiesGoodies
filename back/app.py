@@ -148,7 +148,6 @@ def receive_newAccount_password_data():
 def delete_record_helper(file_path, data_str):
 	file = open(file_path, 'w')
 	file.truncate(0)
-	#data_str.replace('},', '},\n')
 	file.write(data_str)
 
 
@@ -306,3 +305,22 @@ def receive_product():
 
 ##### Delete one product API #####
 #CRUD DELETE.
+@app.route("/deleteProduct" , methods=['POST'])
+def receive_deleted_product():
+	data = flask.request.get_json()
+	deleted_code = data.get("deleted_record_code")
+	old_products_list = read_json_db(products_db)
+	new_products_list = []
+	for product in old_products_list:
+		if product['code'] != deleted_code:
+			new_products_list.append(product)
+
+	if len(new_products_list) < len(old_products_list):
+		ALL_data_str = json.dumps(new_products_list)
+		delete_record_helper(products_db, ALL_data_str)
+		#1 means product deleted successfully.
+		return flask.jsonify({'message': "1"})
+	else:
+		#0 means product not exist.
+		return flask.jsonify({'message': "0"})
+	

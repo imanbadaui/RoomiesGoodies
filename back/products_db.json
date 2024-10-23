@@ -10,19 +10,9 @@
         "access": 1
     },
     {
-        "code": "32",
-        "name": "apple",
-        "owner": "noha",
-        "price": 23.5,
-        "type": "fruit",
-        "quantity": 5,
-        "unit": "pieces",
-        "access": 2
-    },
-    {
         "code": "80",
         "name": "apple",
-        "owner": "Immz",
+        "owner": "Sarah",
         "price": "200",
         "type": "fruit",
         "quantity": "5",
@@ -52,7 +42,7 @@
     {
         "code": "388",
         "name": "mango",
-        "owner": "noha",
+        "owner": "loli",
         "price": "150",
         "type": "fruit",
         "quantity": "3",
@@ -72,7 +62,7 @@
     {
         "code": "685",
         "name": "cheese",
-        "owner": "Sarah",
+        "owner": "loli",
         "price": "78",
         "type": "dairy",
         "quantity": ".25",
