@@ -1,27 +1,46 @@
 # MY FINAL PROJECT
-RoomiesDuties is a web App for roommates to track down all the food products they have at their home.
+RoomiesDuties is a web app that helps roommates keep track of all the items in their home, whether they’re shared or personal. It makes it easy to see what you’ve bought, avoid unnecessary purchases, and budget better for both shared and personal items. This helps cut down on food waste and saves money by organizing what everyone needs.
 
 - What does it do? 
- A roommate can specify the product details along with his allowance for other roommates to use it or not.
- Admins-only can grant new usernames for new roommates and only granted usernames are allowed to create a profile and login.
- Any roommate can CRUD products to the shared list of products among all roommates.
+- **Admins-only (homeowners)** can grant new usernames for incoming roommates, allowing them to create accounts and access the home’s product database.
+- Only granted usernames saved in the database can create profiles and log in.
+- **Roommates** can specify product details and decide whether to allow others to use the item or keep it personal.
+- The app includes a dashboard with a table that tracks:
+  - **Product code** (auto-generated, unique for labeling)
+  - **Name**
+  - **Owner**
+  - **Price**
+  - **Type** (fruits, vegetables, ... etc)
+  - **Quantity and unit**
+  - **Access** (whether it’s shared or personal)
+- **Any roommate** can add, edit, or delete items from the shared product list.
+- **Admins** can view the list of usernames stored in the database to grant unique usernames for new roommates.
+- **Search capabilities** let you filter products by type or by which roommate owns them, making it easier to manage.
 
-- What is the "new feature" which you have implemented that 
-we haven't seen before? 
- Example: "Chart drawing library graphs the user data"
+
+- What is the "new feature" which you have implemented that  we haven't seen before? 
+**admin-grant-Login** Users can log in only if the homeowner gives them a username in person. It’s like a secret username that only the admin and the roommate know. Shhhhhhhhhh! 🤫 
+
 ## Prerequisites
-Did you add any additional modules that someone needs to 
-install (for instance anything in Python that you `pip 
-install-ed`)? 
-List those here (if any).
+You'll need to install flask and flask CORS for this project to work.
+
+
+## How to run the app
+To run the server: (git bash) 
+
+```bash
+FLASK_APP=app.py flask run
+```
+
+
 ## Project Checklist
-- [] It is available on GitHub.
-- [] It uses the Flask web framework.
-- [] It uses at least one module from the Python Standard 
+- [yes] It is available on GitHub.
+- [yes] It uses the Flask web framework.
+- [yes] It uses at least one module from the Python Standard 
 Library other than the random module.
  Please provide the name of the module you are using in your 
 app.
- - Module name:
+ - Module name: hashlib , json
 - [] It contains at least one class written by you that has 
 both properties and methods. It uses `__init__()` to let the 
 class initialize the object's attributes (note that 
@@ -63,6 +82,6 @@ and doesn't contain unused or experimental code.
 `console.log()` for any information the app user should see. 
 Instead, all user feedback needs to be visible in the 
 browser. 
-- [] All exercises have been completed as per the 
+- [yes] All exercises have been completed as per the 
 requirements and pushed to the respective GitHub repository.
 

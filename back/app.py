@@ -234,6 +234,10 @@ def all_usernames_request():
 	return flask.jsonify(usernames_list)
 
 
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
 
 
 
@@ -341,4 +345,3 @@ def receive_deleted_product():
 	else:
 		#0 means product not exist.
 		return flask.jsonify({'message': "0"})
-	
