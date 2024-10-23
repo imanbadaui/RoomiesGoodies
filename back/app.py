@@ -218,6 +218,24 @@ def allproducts_request():
 
 
 
+##### All Usernames API #####
+#CRUD READ.
+#returns a list of all the usernames in DB to the front-end.
+@app.route("/allUsernamesRequest" , methods=['POST'])
+def all_usernames_request():
+	allusernames_data = read_json_db(users_db)
+
+	#list of all the products to be sent to front end
+	usernames_list = []
+
+	for user in allusernames_data:
+		usernames_list.append(user['username'])
+
+	return flask.jsonify(usernames_list)
+
+
+
+
 
 ##### Searching API #####
 #CRUD UPDATE.

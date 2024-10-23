@@ -5,7 +5,6 @@ let grantButton = document.getElementById("grantButton");
 let newUserConfirmMessage = document.getElementById("newUserConfirmMessage");
 let goToDashboardButton = document.getElementById("goToDashboardButton");
 let allusers_button = document.getElementById("allusers_button");
-let xhrNewUserAuth = new XMLHttpRequest();
 let isChecked = false;
 let allUsernamesList = document.getElementById("allUsernamesList");
 
@@ -15,6 +14,7 @@ isAdminCheckBox.addEventListener("change", function () {
     isChecked = isAdminCheckBox.checked;
 });
 
+let xhrNewUserAuth = new XMLHttpRequest();
 //send granted username and is admin or not data to backend to store in DB.
 function sendNewUserData() {
     const newUsernameStr = newUsername.value;
@@ -47,22 +47,50 @@ goToDashboardButton.addEventListener("click", function () {
     window.location.href = "products.html";
 });
 
+let xhrAllUsernames = new XMLHttpRequest();
+//sends request to receive all usernames.
+function requestAllUsernames() {
+    xhrAllUsernames.open("POST", "http://127.0.0.1:5000/allUsernamesRequest", true);
+    xhrAllUsernames.setRequestHeader("Content-Type", "application/json");
+    xhrAllUsernames.send();
+
+}
+
+function receiveAllUsernames() {
+  
+}
+
 let modal = document.getElementById("infoModal");
-let closeBtn = document.querySelector(".close");
+let modalTitle = document.getElementById("modalTitle");
+let modalBody = document.getElementById("modalBody");
+let closeButton = document.querySelector(".close");
 
-// Show the modal when the button is clicked
-allusers_button.addEventListener("click", function() {
-  modal.style.display = "block";
+// show all the usernames in the database including the admins.
+allusers_button.addEventListener("click", function () {
+    modal.style.display = "block";
+    modalTitle.textContent = "All your Roomies Usernames";
+    requestAllUsernames();
+    xhrAllUsernames.onload = function () {
+        if (xhrAllUsernames.status === 200) {
+            let response = JSON.parse(xhrAllUsernames.response);
+            let allUsernamesList = response;
+            let newUsernamesStr = allUsernamesList.join(", ");
+            modalBody.textContent = newUsernamesStr; 
+
+        }
+    }
+
 });
 
-// Close the modal when the "x" is clicked
-closeBtn.addEventListener("click", function() {
-  modal.style.display = "none";
-});
-
-// Close the modal when clicking outside the modal content
-window.addEventListener("click", function(event) {
-  if (event.target == modal) {
+// Closes the modal when the "x" is clicked
+closeButton.addEventListener("click", function () {
     modal.style.display = "none";
-  }
 });
+
+// Closes the modal when clicking outside the modal content
+window.addEventListener("click", function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+});
+
