@@ -68,12 +68,17 @@
                     style="background-color: #f4c524; color: black;  width: fit-content;; margin-bottom: 1%;"
                     onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" type="button"
                     id="deleteButton">delete product</button>
+                    
                 <input type="text" class="form-control" id="updatedCodeInput" placeholder="Enter code"
                     name="updatedCodeInput" class="box" style="margin-bottom: 2%; display:none;" required>
+                    <button class="btn"
+                    style="background-color: #e7688b; color: black; display: none; width: fit-content; margin-bottom: 1%;"
+                    onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
+                    id="findButton">Find record</button>
                 <button class="btn"
                     style="background-color: #e7688b; color: black; display: none; width: fit-content; margin-bottom: 1%;"
                     onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
-                    id="saveChangesButton">Apply Change</button>
+                    id="saveChangesButton">Save Change</button>
                 <div class="container-fluid" id="crudMesssage"> </div>
             </div>
             <div>
@@ -91,6 +96,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                     </tbody>
                 </table>
             </div>

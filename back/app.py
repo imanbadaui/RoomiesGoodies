@@ -259,6 +259,8 @@ def receive_search_query():
 
 ##### Write one product API #####
 #CRUD CREATE.
+##### Update one product API #####
+#CRUD UPDATE.
 @app.route("/writeProduct" , methods=['POST'])
 def receive_product():
 	data = flask.request.get_json()
@@ -271,20 +273,35 @@ def receive_product():
 	access = data.get("access")
 	unit = data.get("unit")
 
+	product_exist = False
+	
 	new_product = Product(code,name,owner,price,type,quantity,unit,access)
 	new_product_dict = new_product.to_dict()
-	write_json_db(products_db ,new_product_dict)
-	#1 means product inserted successfully in DB
+	#loop over DB, if product exists, rewrite it, else, add it.
+	allproducts_data = read_json_db(products_db)
+	for prod in allproducts_data: 
+		if prod['code'] == new_product.product_code:
+			product_exist = True
+			break
+
+	if product_exist:
+		prod['code'] = new_product.product_code
+		prod['name'] = new_product.product_name
+		prod['owner'] = new_product.product_owner
+		prod['price'] = new_product.product_price
+		prod['type'] = new_product.product_type
+		prod['quantity'] = new_product.product_quantity
+		prod['unit'] = new_product.product_unit
+		prod['access'] = new_product.product_access
+
+		ALL_products_str = json.dumps(allproducts_data)
+		delete_record_helper(products_db, ALL_products_str)
+
+	else:
+		write_json_db(products_db ,new_product_dict)
+		#1 means product inserted successfully in DB
+
 	return flask.jsonify(1)
-
-
-
-
-##### Update one product API #####
-#CRUD UPDATE.
-
-
-
 
 
 ##### Delete one product API #####

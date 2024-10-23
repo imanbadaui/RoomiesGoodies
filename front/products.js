@@ -12,6 +12,7 @@ const saveChangesButton = document.getElementById("saveChangesButton");
 const updateButton = document.getElementById("updateButton");
 const deleteButton = document.getElementById("deleteButton");
 const updatedCodeInput = document.getElementById("updatedCodeInput");
+const findButton = document.getElementById("findButton");
 
 let xhrRead = new XMLHttpRequest();
 //sends a request to read all products in DB 
@@ -139,7 +140,7 @@ function addRecord() {
     let newRow;
     let cells;
     let newProduct = [];
-    
+
     saveChangesButton.style.display = "block";
     saveChangesButton.addEventListener("click", function () {
         newRow = tbody.firstElementChild;
@@ -196,34 +197,123 @@ AddButton.addEventListener("click", function () {
 let updatedRecordCode = "";
 //function to update a record in existing table.
 function updateRecord() {
+    let selected_row;
 
     updateButton.addEventListener("click", function () {
         updateButton.style.backgroundColor = 'lightblue';
+
         updatedCodeInput.style.display = "block";
         saveChangesButton.style.display = "block";
-       
-        updatedRecordCode = updatedCodeInput.value;
-    });
+        findButton.style.display = "block";
 
-    saveChangesButton.addEventListener("click", function(){
-        updateButton.style.backgroundColor = '#f4c524';
+        findButton.addEventListener("click", function () {
+            updatedRecordCode = updatedCodeInput.value;
+
+            let rows = document.querySelectorAll('tbody tr');
+
+
+            rows.forEach(function (row) {
+                let row_code = row.cells[0].textContent.trim();
+                if (row_code == updatedRecordCode) {
+                    //to get  wider scope to be used outside this event listener.
+                    selected_row = row;
+                    let tbody = selected_row.parentNode;
+                    tbody.insertBefore(selected_row, tbody.firstChild);
+                    for (let i = 1; i < selected_row.cells.length; i++) {
+                        selected_row.cells[i].setAttribute('contenteditable', 'true');
+                        selected_row.cells[i].style.backgroundColor = '#ffdd6a';
+                    }
+                }
+            });
+        });
+
+        let dataNotComplete = false;
+        let newProduct = [];
+
+        saveChangesButton.addEventListener("click", function () {
+            //loops over cells of record and pushes them to an array
+            for (let i = 0; i < selected_row.cells.length; i++) {
+                if (selected_row.cells[i].innerText.trim() == "") {
+                    dataNotComplete = true;
+                    break;
+                } else {
+                    newProduct.push(selected_row.cells[i].innerText.trim());
+                }
+            }
+            if (dataNotComplete) {
+                crudMesssage.innerHTML = "<p> Please fill all fields. </p>"
+            } else {
+                selected_row.remove();
+                selected_row = `<tr>
+                              <td >${newProduct[0]} </td>
+                              <td >${newProduct[1]} </td>
+                              <td >${newProduct[2]} </td>
+                              <td >${newProduct[3]} </td>
+                              <td >${newProduct[4]} </td>
+                              <td >${newProduct[5]} </td>
+                              <td >${newProduct[6]} </td>
+                              <td >${newProduct[7]} </td>
+                           </tr>`;
+
+                tbody.insertAdjacentHTML('afterbegin', selected_row);
+                send_write_request(newProduct[0], newProduct[1], newProduct[2], newProduct[3], newProduct[4], newProduct[5], newProduct[6], newProduct[7]);
+                saveChangesButton.style.display = "none";
+                crudMesssage.style.display = "none";
+                updatedCodeInput.style.display = "none";
+                findButton.style.display = "none";
+                updateButton.style.backgroundColor = '#f4c524';
+            }
+            //get it back to default color after finishing
+            for (let i = 1; i < selected_row.cells.length; i++) {
+                selected_row.cells[i].style.backgroundColor = '';
+            }
+        });
     });
 }
+
 updateRecord();
 
 //function to delete a record from an existing table.
 function deleteRecord() {
+    let selected_row;
 
     deleteButton.addEventListener("click", function () {
         deleteButton.style.backgroundColor = 'lightblue';
         updatedCodeInput.style.display = "block";
         saveChangesButton.style.display = "block";
-        updatedRecordCode = updatedCodeInput.value;
+        findButton.style.display = "block";
 
-    });
+        findButton.addEventListener("click", function () {
+            updatedRecordCode = updatedCodeInput.value;
 
-    saveChangesButton.addEventListener("click", function(){
-        updateButton.style.backgroundColor = '#f4c524';
+            let rows = document.querySelectorAll('tbody tr');
+
+            //searching for deleted row
+            rows.forEach(function (row) {
+                let row_code = row.cells[0].textContent.trim();
+                if (row_code == updatedRecordCode) {
+                    //to get  wider scope to be used outside this event listener.
+                    selected_row = row;
+                    let tbody = selected_row.parentNode;
+                    tbody.insertBefore(selected_row, tbody.firstChild);
+                    for (let i = 1; i < selected_row.cells.length; i++) {
+                        selected_row.cells[i].style.backgroundColor = '#ff6a6a';
+                    }
+                }
+            });
+        });
+
+        saveChangesButton.addEventListener("click", function () {
+            //delete it from frontend
+            selected_row.remove();
+            //delete it from backend
+
+            saveChangesButton.style.display = "none";
+            crudMesssage.style.display = "none";
+            updatedCodeInput.style.display = "none";
+            findButton.style.display = "none";
+            deleteButton.style.backgroundColor = '#f4c524';
+        });
     });
 }
 deleteRecord();

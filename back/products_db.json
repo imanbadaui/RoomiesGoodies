@@ -3,9 +3,9 @@
         "code": "54",
         "name": "tomato",
         "owner": "Immz",
-        "price": 23.5,
-        "type" : "vege",
-        "quantity": 5,
+        "price": "23.5",
+        "type": "vege",
+        "quantity": "5",
         "unit": "pieces",
         "access": 1
     },
@@ -14,7 +14,7 @@
         "name": "apple",
         "owner": "noha",
         "price": 23.5,
-        "type" : "fruit",
+        "type": "fruit",
         "quantity": 5,
         "unit": "pieces",
         "access": 2
@@ -23,9 +23,9 @@
         "code": "80",
         "name": "apple",
         "owner": "Immz",
-        "price": 200,
-        "type" : "fruit",
-        "quantity": 5,
+        "price": "200",
+        "type": "fruit",
+        "quantity": "5",
         "unit": "pieces",
         "access": 1
     },
@@ -34,7 +34,7 @@
         "name": "mango",
         "owner": "laila",
         "price": 80,
-        "type" : "fruit",
+        "type": "fruit",
         "quantity": 8,
         "unit": "pieces",
         "access": 2
@@ -44,64 +44,59 @@
         "name": "orange juice",
         "owner": "loli",
         "price": 55,
-        "type" : "juice",
+        "type": "juice",
         "quantity": 1,
         "unit": "liter",
         "access": 2
+    },
+    {
+        "code": "388",
+        "name": "mango",
+        "owner": "noha",
+        "price": "150",
+        "type": "fruit",
+        "quantity": "3",
+        "unit": "pieces",
+        "access": 2
+    },
+    {
+        "code": "974",
+        "name": "cucumber",
+        "owner": "Immz",
+        "price": "45",
+        "type": "fruit",
+        "quantity": "10",
+        "unit": "pieces",
+        "access": 1
+    },
+    {
+        "code": "685",
+        "name": "cheese",
+        "owner": "Sarah",
+        "price": "78",
+        "type": "dairy",
+        "quantity": ".25",
+        "unit": "pieces",
+        "access": 1
+    },
+    {
+        "code": "553",
+        "name": "garlic",
+        "owner": "Mostafa",
+        "price": "230",
+        "type": "vege",
+        "quantity": "4",
+        "unit": "packs",
+        "access": 2
+    },
+    {
+        "code": "184",
+        "name": "mango",
+        "owner": "Immz",
+        "price": "167",
+        "type": "fruit",
+        "quantity": "6",
+        "unit": "pieces",
+        "access": 1
     }
-,
-{
-"code": "388",
- "name": "mango",
- "owner": "noha",
- "price": "150",
- "type": "fruit",
- "quantity": "3",
- "unit": "pieces",
- "access": "shared"
-}
-,
-{
-"code": "974",
- "name": "cucumber",
- "owner": "Immz",
- "price": "45",
- "type": "fruit",
- "quantity": "10",
- "unit": "pieces",
- "access": "shared"
-}
-,
-{
-"code": "685",
- "name": "cheese",
- "owner": "Sarah",
- "price": "78",
- "type": "dairy",
- "quantity": ".25",
- "unit": "pieces",
- "access": "personal"
-}
-,
-{
-"code": "553",
- "name": "garlic",
- "owner": "Mostafa",
- "price": "230",
- "type": "vege",
- "quantity": "4",
- "unit": "packs",
- "access": "shared"
-}
-,
-{
-"code": "184",
- "name": "mango",
- "owner": "Immz",
- "price": "167",
- "type": "fruit",
- "quantity": "6",
- "unit": "pieces",
- "access": "shared"
-}
 ]
