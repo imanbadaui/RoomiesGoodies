@@ -2,10 +2,10 @@
 RoomiesDuties is a web app that helps roommates keep track of all the items in their home, whether they’re shared or personal. It makes it easy to see what you’ve bought, avoid unnecessary purchases, and budget better for both shared and personal items. This helps cut down on food waste and saves money by organizing what everyone needs.
 
 - What does it do? 
-- **Admins-only (homeowners)** can grant new usernames for incoming roommates, allowing them to create accounts and access the home’s product database.
-- Only granted usernames saved in the database can create profiles and log in.
-- **Roommates** can specify product details and decide whether to allow others to use the item or keep it personal.
-- The app includes a dashboard with a table that tracks:
+**Admins-only (homeowners)** can grant new usernames for incoming roommates, allowing them to create accounts and access the home’s product database.
+Only granted usernames saved in the database can create profiles and log in.
+**Roommates** can specify product details and decide whether to allow others to use the item or keep it personal.
+The app includes a dashboard with a table that tracks:
   - **Product code** (auto-generated, unique for labeling)
   - **Name**
   - **Owner**
@@ -13,9 +13,9 @@ RoomiesDuties is a web app that helps roommates keep track of all the items in t
   - **Type** (fruits, vegetables, ... etc)
   - **Quantity and unit**
   - **Access** (whether it’s shared or personal)
-- **Any roommate** can add, edit, or delete items from the shared product list.
-- **Admins** can view the list of usernames stored in the database to grant unique usernames for new roommates.
-- **Search capabilities** let you filter products by type or by which roommate owns them, making it easier to manage.
+**Any roommate** can add, edit, or delete items from the shared product list.
+**Admins** can view the list of usernames stored in the database to grant unique usernames for new roommates.
+**Search capabilities** let you filter products by type or by which roommate owns them, making it easier to manage.
 
 
 - What is the "new feature" which you have implemented that  we haven't seen before? 
@@ -31,6 +31,7 @@ To run the server: (git bash)
 ```bash
 FLASK_APP=app.py flask run
 ```
+
 
 
 ## Project Checklist
