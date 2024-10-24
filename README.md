@@ -70,6 +70,4 @@ To run the server, use Git Bash:
 ```bash
 FLASK_APP=app.py flask run
 ```
-
-from the Live Server extension.
 Start with homepage.html page from the Live Server extension.
