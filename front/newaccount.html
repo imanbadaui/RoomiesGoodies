@@ -5,33 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Account</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="newaccount_style.css" />
 </head>
 
 <body>
-    <div id ="main-container" class="container-fluid" style="display: flex; justify-content: center; align-items: center;  flex-direction:column;"> 
-           
-        <div id="create-new-account-container" class="container-fluid" style="display: flex; justify-content: center; align-items: center;  flex-direction:column; flex-wrap:wrap;">
-            <form action="/profile" method="get" id="create-account-form">
-                <h1 class = "container-fluid" id= "Sign-up">Sign Up</h1> <br>
-                <h3 class = "container-fluid" id= "newAccountWelcomeMessage"> Welcome Home, Roomie! </h3> <br>
-                <input type="text"  class="form-control" id="grantedUsername" placeholder="Enter granted username" name="grantedUsername" class="box" required><br>
-                <input type="password" class="form-control"   id="newRoomiePassword" placeholder="Enter password" name="newRoomiePassword" class="box" required><br>
-                <input type="password"  class="form-control"  id="rePassword" placeholder="Re-enter password" name="rePassword" class="box" required><br>
-               
-                <div class="spinner-border spinner-border-sm" id ="loader" role="status" style="display: none;">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-               
+    
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            
+            <h5 id="modalTitle"></h5>
+            <p id="modalBody"></p>
+       
+        </div>
+      </div>
 
-                <input type="button" value="Create" class="btn" 
-                style="background-color: #f4c524; color: black; width: 100%;" onmouseover="this.style.color='#f6f6f6';"  onmouseout="this.style.color='black';" id="createButton"> <br>
-               
-                <div  class="custom-paragraph mb-4" id="newAccountConfirmMessage"></div>
+    <div id="main-container" class="container-fluid"
+        style="display: flex; justify-content: center; align-items: center;  flex-direction:column;">
+
+        <div id="create-new-account-container" class="container-fluid"
+            style="display: flex; justify-content: center; align-items: center;  flex-direction:column; flex-wrap:wrap;">
+            <form action="/profile" method="get" id="create-account-form">
+                <h1 class="container-fluid" id="Sign-up">Sign Up</h1> <br>
+                <h3 class="container-fluid" id="newAccountWelcomeMessage"> Welcome Home, Roomie! </h3> <br>
+                <input type="text" class="form-control" id="grantedUsername" placeholder="Enter granted username"
+                    name="grantedUsername" class="box" required><br>
+                <input type="password" class="form-control" id="newRoomiePassword" placeholder="Enter password"
+                    name="newRoomiePassword" class="box" required><br>
+                <input type="password" class="form-control" id="rePassword" placeholder="Re-enter password"
+                    name="rePassword" class="box" required><br>
+
+                <label id = "magicWordLabel"> What's your  magic word? </label> 
+
+                <input type="text" class="form-control" id="secretQuestionInput" placeholder="Add something like opensesame"
+                    name="secretQuestionInput" class="box" required><br>
+
+                <div class="spinner-border spinner-border-sm" id="loader" role="status" style="display: none;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+
+
+                <input type="button" value="Create" class="btn"
+                    style="background-color: #f4c524; color: black; width: 100%;"
+                    onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" id="createButton">
+                <br>
+
+                <div class="custom-paragraph mb-4" id="newAccountConfirmMessage"></div>
             </form>
         </div>
-    
+
     </div>
     <script src="newaccount.js"></script>
 </body>

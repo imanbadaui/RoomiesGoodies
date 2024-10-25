@@ -62,10 +62,6 @@ function requestAllUsernames() {
 
 }
 
-function receiveAllUsernames() {
-  
-}
-
 let modal = document.getElementById("infoModal");
 let modalTitle = document.getElementById("modalTitle");
 let modalBody = document.getElementById("modalBody");

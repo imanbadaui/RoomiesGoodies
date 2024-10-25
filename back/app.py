@@ -26,7 +26,8 @@ def create_first_admin():
 	first_admin_name = "Immz"
 	first_admin_pass = "3e37844873"
 	is_admin = True
-	first_user = User(first_admin_name, first_admin_pass, is_admin)
+	secret_word = "tometotomato"
+	first_user = User(first_admin_name, first_admin_pass, is_admin, secret_word)
 	#serializing object user to be stored in json
 	first_user_dict = first_user.to_dict()
 	write_json_db(users_db, first_user_dict)
@@ -90,7 +91,7 @@ def receive_newuser_grant_data():
 				user_exist = True
 				break
 		if not user_exist:
-			new_user = User(new_username, "", is_new_user_admin)
+			new_user = User(new_username, "", is_new_user_admin, "")
 			new_user_dict = new_user.to_dict()
 			write_json_db(users_db, new_user_dict)
 			#1 means created successfully
@@ -115,11 +116,12 @@ def receive_newAccount_password_data():
 	data = flask.request.get_json()  
 	granted_username = data.get("grantedUsername")
 	new_password = data.get("newPassword")
+	secret_word = data.get("secretWord")
 
 	user_exists = False
 	data_updated = False
 
-	if granted_username != "" and new_password != "":
+	if granted_username != "" and new_password != "" and secret_word != "":
 		#read users from JSON
 		allusers_data = read_json_db(users_db)
 		hashed_pass = hash_pass(new_password)
@@ -127,11 +129,12 @@ def receive_newAccount_password_data():
 			if user['username'] == granted_username:
 				user_exists = True
 				#if user with password already exist
-				if user['password'] != "":
+				if user['password'] != "" and user['secret_word'] != "":
 					data_updated = False
 					break
 				else:
 					user['password'] = hashed_pass
+					user['secret_word'] = secret_word
 					#convert JSON list of objects to string
 					ALL_data_str = json.dumps(allusers_data)
 					delete_record_helper(users_db, ALL_data_str)
@@ -173,9 +176,11 @@ def receive_new_password_data():
 	data = flask.request.get_json()  
 	granted_username = data.get("grantedUsername")
 	new_password = data.get("newPassword")
+	secret_word = data.get("secretWord")
 	user_exists = False
-
-	if granted_username != "" and new_password != "":
+	secret_word_exists = False
+	data_updated = False
+	if granted_username != "" and new_password != "" and secret_word != "":
 		#read users from JSON
 		allusers_data = read_json_db(users_db)
 		hashed_pass = hash_pass(new_password)
@@ -183,23 +188,32 @@ def receive_new_password_data():
 		for user in allusers_data:
 			#if user with password already exist
 			if user['username'] == granted_username:
-				if user['password'] != "":
-					#remove old password
-					user['password'] = ""
-					#add new password
-					user['password'] = hashed_pass
-					#convert JSON list of objects to string
-					ALL_data_str = json.dumps(allusers_data)
-					delete_record_helper(users_db, ALL_data_str)
-					user_exists = True
-					break
+				user_exists = True
+				if  user['secret_word'] == secret_word:
+					secret_word_exists = True
+					if user['password'] != "":
+						#remove old password
+						user['password'] = ""
+						#add new password
+						user['password'] = hashed_pass
+						#convert JSON list of objects to string
+						ALL_data_str = json.dumps(allusers_data)
+						delete_record_helper(users_db, ALL_data_str)
+						data_updated = True
+						break
 
-		if user_exists:
+		if not user_exists:
+			#-1 implies user doesn't have an account yet to use forgot password 
+			return flask.jsonify({'message': "-1"})
+		
+		elif not secret_word_exists:
+				#-2 implies secret word doesn't match          
+				return flask.jsonify({'message': "-2"})
+
+		if data_updated:
 			#1 implies data stored successfully            
 			return flask.jsonify({'message': "1"})
-		else:
-			#-1 implies user doesn't have an account yet to use forgot password
-			return flask.jsonify({'message': "-1"})
+			
 	else:
 		#0 means an empty data is sent
 		return flask.jsonify({'message': "0"})
