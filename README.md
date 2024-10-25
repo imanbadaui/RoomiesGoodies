@@ -30,7 +30,9 @@
 
 ## Unique Feature
 
-**Admin-Grant Login**: Users can log in only if the homeowner gives them a username in person. It’s like a secret username that only the admin and the roommate know. Shhhhhhhhhh! 🤫 
+**Magic Word** :a secret word a user sets while creating a new account to help in updating the user's info.
+                                            Shhhhhhhhhh! 🤫  
+**Admin-Grant Login**: Users can log in only if the homeowner gives them a username in person. 
 
 ## Features
 
