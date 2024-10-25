@@ -11,13 +11,13 @@
 
 <body>
     
-<div id ="main-container"  style="display: flex;  flex-direction: column; justify-content: center; align-items: center;">
-    <div class = "container-fluid" style="padding-top: .6%;  display: flex; justify-content: center; align-items: center;  flex-direction:column; flex-wrap:wrap;"  id="header">
+<div id ="main-container">
+    <div class = "container-fluid" id="header">
         <img id="logo" src="logo.png" alt="Roomies Goodies Logo" width="20%" height="20%">
         <P id="slogan">Who ate my sauce?</P>
     </div>
 
-    <div class="container-fluid" style="display: flex; justify-content: center; align-items: center;  flex-direction:column; flex-wrap:wrap;"  id="login-container">
+    <div class="container-fluid" id="login-container">
         <form action="/products" method="get">
 
             <h1 class = "container-fluid" id= "login_h1" >Login </h1> <br>
@@ -32,7 +32,7 @@
 
             <a  id = "forgotpassword" href="newpassword.html"> forgot Password? </a> <br>
 
-            <div class="spinner-border spinner-border-sm" id ="loader" role="status" style="display: none;">
+            <div class="spinner-border spinner-border-sm" id ="loader" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
             <div id = "homepageLoginButtons" > 

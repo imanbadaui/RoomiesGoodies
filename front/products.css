@@ -1,7 +1,110 @@
-#productsTable th, 
+body {
+    background-color: #f6f6f6;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+#logo-container {
+    display: flex;
+    justify-content: flex-start;
+    width: fit-content;
+}
+
+#logo {
+    cursor: pointer;
+    width: 60%;
+    height: auto;
+    margin-top: 3%;
+    margin-left: 2%;
+}
+
+#profile-container {
+    display: flex;
+    justify-content: flex-end;
+    width: fit-content;
+}
+
+#profilePhoto {
+    cursor: pointer;
+    width: 16%;
+    height: 16%;
+    margin-right: 2%;
+    margin-top: 6%;
+}
+
+#logoutButton {
+    background-color: #f4c524;
+    color: black;
+    width: fit-content;
+    height: 20%;
+    margin-top: 8%;
+    margin-right: 2%;
+}
+
+#update-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#searchButton {
+    background-color: #f4c524;
+    color: black;
+}
+
+#AddButton {
+    background-color: #f4c524;
+    color: black;
+    width: fit-content;
+    margin-bottom: 1%;
+}
+
+#updateButton {
+    background-color: #f4c524;
+    color: black;
+    width: fit-content;
+    ;
+    margin-bottom: 1%;
+}
+
+#deleteButton {
+    background-color: #f4c524;
+    color: black;
+    width: fit-content;
+    margin-bottom: 1%;
+}
+
+#updatedCodeInput {
+    margin-bottom: 2%;
+    display: none;
+}
+
+#findButton {
+    background-color: #e7688b;
+    color: black;
+    display: none;
+    width: fit-content;
+    margin-bottom: 1%;
+}
+
+#saveChangesButton {
+    background-color: #e7688b;
+    color: black;
+    display: none;
+    width: fit-content;
+    margin-bottom: 1%;
+}
+
+#productsTable th,
 #productsTable td {
     border-radius: 10px;
-    padding: 8px; 
+    padding: 8px;
     border: 1px solid #ddd;
 }
 
@@ -12,6 +115,6 @@
 }
 
 thead {
-    
+
     color: white;
 }
