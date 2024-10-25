@@ -98,6 +98,9 @@ def receive_newuser_grant_data():
 		else:
 		#0 means user already exists
 			return flask.jsonify({'message': "0"})
+	else:
+		#-1 means username sent from front end is empty string
+			return flask.jsonify({'message': "-1"})
 
 
 

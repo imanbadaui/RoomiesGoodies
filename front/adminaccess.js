@@ -27,20 +27,26 @@ function sendNewUserData() {
 }
 
 grantButton.addEventListener("click", function () {
-    sendNewUserData();
-    xhrNewUserAuth.onload = function () {
-        if (xhrNewUserAuth.status === 200) {
-            let response = JSON.parse(xhrNewUserAuth.responseText);
-            if (response.message === "1") {
-                newUserConfirmMessage.innerHTML = "<p> Wooop Wooop! Data sent Successfully. Congrats on having a new roommate! </p>"
+    if(newUsername.value == ""){
+         newUserConfirmMessage.innerHTML = "<p>Please enter a username. </p>"
+    }else{
+        sendNewUserData();
+        xhrNewUserAuth.onload = function () {
+            if (xhrNewUserAuth.status === 200) {
+                let response = JSON.parse(xhrNewUserAuth.responseText);
+                if (response.message === "1") {
+                    event.preventDefault();
+                    newUserConfirmMessage.innerHTML = "<p> Wooop Wooop! Data sent Successfully. Congrats on having a new roommate! </p>"
+                }
+                else if (response.message === "0") {
+                    newUserConfirmMessage.innerHTML = "<p> User already exists. </p>"
+                }
+            } else {
+                newUserConfirmMessage.innerHTML = "<p> An error occurred while storing new username. Please try again. </p>";
             }
-            else if (response.message === "0") {
-                newUserConfirmMessage.innerHTML = "<p> User already exists. </p>"
-            }
-        } else {
-            newUserConfirmMessage.innerHTML = "<p> An error occurred while storing new username. Please try again. </p>";
         }
     }
+
 });
 
 goToDashboardButton.addEventListener("click", function () {

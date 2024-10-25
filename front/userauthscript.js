@@ -53,31 +53,37 @@ function ReceiveLoginAuthResponse() {
 if admin button: send request, receive answer, open admin template + when press grant */
 //admin and user can login but only admin can go to admin page.
 loginButton.addEventListener("click", function () {
-    sendLoginAuthRequest();
-    //check if data sent or not.
-    xhrLoginAuth.onload = function () {
-        if (xhrLoginAuth.status === 200) {
-            serverResponse = ReceiveLoginAuthResponse();
-            if (serverResponse == 1) {
-                //store correct username in local storage
-                if (username) {
-                    localStorage.setItem("username", username.value);
+    if(username.value == ""){
+        loginErrorMessage.innerHTML = "<p> Please Enter your username. </p>";
+    }else if(password.value == ""){
+        loginErrorMessage.innerHTML = "<p> Please enter your password. </p>";
+    }else{
+        sendLoginAuthRequest();
+        //check if data sent or not.
+        xhrLoginAuth.onload = function () {
+            if (xhrLoginAuth.status === 200) {
+                serverResponse = ReceiveLoginAuthResponse();
+                if (serverResponse == 1) {
+                    //store correct username in local storage
+                    if (username) {
+                        localStorage.setItem("username", username.value);
+                    }
+    
+                    loader.style.display = 'inline-block';
+                    //sleep for 5 seconds before redirection
+                    setTimeout(function () {
+                        loader.style.display = 'none';
+                        window.location.href = "products.html";
+                    }, 1000);
+    
+                } else if (serverResponse == -1) {
+                    loginErrorMessage.innerHTML = "<p> You're not a roomie. Enter a valid username. </p>";
+                } else if (serverResponse == 0) {
+                    loginErrorMessage.innerHTML = "<p> Oops! wrong password, try again. </p>";
                 }
-
-                loader.style.display = 'inline-block';
-                //sleep for 5 seconds before redirection
-                setTimeout(function () {
-                    loader.style.display = 'none';
-                    window.location.href = "products.html";
-                }, 1000);
-
-            } else if (serverResponse == -1) {
-                loginErrorMessage.innerHTML = "<p> You're not a roomie. Enter a valid username. </p>";
-            } else if (serverResponse == 0) {
-                loginErrorMessage.innerHTML = "<p> Oops! wrong password, try again. </p>";
+            } else {
+                loginErrorMessage.innerHTML = "<p> An error occurred while logging in. Please try again. </p>";
             }
-        } else {
-            loginErrorMessage.innerHTML = "<p> An error occurred while logging in. Please try again. </p>";
         }
     }
 });
