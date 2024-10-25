@@ -31,7 +31,8 @@
 ## Unique Feature
 
 **Magic Word** :a secret word a user sets while creating a new account to help in updating the user's info.
-                                            Shhhhhhhhhh! 🤫  
+User should never share it with anyone. Shhhhhhhhhh! 🤫  
+
 **Admin-Grant Login**: Users can log in only if the homeowner gives them a username in person. 
 
 ## Features
