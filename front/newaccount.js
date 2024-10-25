@@ -26,34 +26,43 @@ function sendNewAccountData() {
 createButton.addEventListener("click", function () {
     newPasswordForRommie = newRoomiePassword.value;
     repasswordValue = rePassword.value;
-    //if reenter password value matches the value of the new password.
-    if (newPasswordForRommie == repasswordValue) {
-        sendNewAccountData();
-        xhrNewAccountAuth.onload = function () {
-            if (xhrNewAccountAuth.status === 200) {
-                //console.log(grantedUsername.value);
-                let response = JSON.parse(xhrNewAccountAuth.responseText);
-                if (response.message === "1") {
-                    newAccountConfirmMessage.innerHTML = "<p> Account created Successfully. Nice to have you home " + grantedUsername.value + "! </p>";
-                    loader.style.display = 'inline-block';
-                    //sleep for 5 seconds before redirection
-                    setTimeout(function () {
-                        loader.style.display = 'none';
-                        window.location.href = "homepage.html";
-                    }, 2000);
-                }
-                else if (response.message === "0") {
-                    newAccountConfirmMessage.innerHTML = "<p> Please Enter a username and password. </p>";
-                } else if (response.message === "-1") {
-                    newAccountConfirmMessage.innerHTML = "<p> Account already created. </p>";
-                }
-            } else {
-                newAccountConfirmMessage.innerHTML = "<p> An error occurred while storing new username. Please try again. </p>";
-            }
-        }
-    } else {
-        newAccountConfirmMessage.innerHTML = "<p> Please enter matching passwords. </p>";
+    if (grantedUsername.value == "") {
+        newAccountConfirmMessage.innerHTML = "<p> Please enter your username. </p>";
+    } else if (newPasswordForRommie == "") {
+        newAccountConfirmMessage.innerHTML = "<p> Please enter your new password. </p>";
     }
+    else if (repasswordValue == "") {
+        newAccountConfirmMessage.innerHTML = "<p> Please re-enter your password. </p>";
+    } else {
+        //if reenter password value matches the value of the new password.
+        if (newPasswordForRommie == repasswordValue) {
+            sendNewAccountData();
+            xhrNewAccountAuth.onload = function () {
+                if (xhrNewAccountAuth.status === 200) {
+                    let response = JSON.parse(xhrNewAccountAuth.responseText);
+                    if (response.message === "1") {
+                        newAccountConfirmMessage.innerHTML = "<p> Account created Successfully. Nice to have you home " + grantedUsername.value + "! </p>";
+                        loader.style.display = 'inline-block';
+                        //sleep for 5 seconds before redirection
+                        setTimeout(function () {
+                            loader.style.display = 'none';
+                            window.location.href = "homepage.html";
+                        }, 2000);
+                    }
+                   else if (response.message === "2") {
+                        newAccountConfirmMessage.innerHTML = "<p> Account already created. </p>";
+                    }else if(response.message === "-1"){
+                        newAccountConfirmMessage.innerHTML = "<p> This  is not a valid username. please get back to your admin. </p>";
+                    }
+                } else {
+                    newAccountConfirmMessage.innerHTML = "<p> An error occurred while storing new username. Please try again. </p>";
+                }
+            }
+        } else {
+            newAccountConfirmMessage.innerHTML = "<p> Please enter matching passwords. </p>";
+        }
+    }
+
 
     grantedUsernameStr = "";
     newPasswordForRommie = "";

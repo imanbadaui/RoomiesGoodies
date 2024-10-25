@@ -106,8 +106,7 @@ def receive_newuser_grant_data():
 
 
 
-##### Forgot Password API #####
-#CRUD UPDATE.
+##### New Account API #####
 #CRUD UPDATE
 #receive password of granted user data from front end
 @app.route("/newAccount" , methods=['POST'])
@@ -118,30 +117,37 @@ def receive_newAccount_password_data():
 	new_password = data.get("newPassword")
 
 	user_exists = False
+	data_updated = False
 
 	if granted_username != "" and new_password != "":
 		#read users from JSON
 		allusers_data = read_json_db(users_db)
 		hashed_pass = hash_pass(new_password)
-		#if user with password already exist
 		for user in allusers_data:
 			if user['username'] == granted_username:
+				user_exists = True
+				#if user with password already exist
 				if user['password'] != "":
-					user_exists= True
+					data_updated = False
 					break
 				else:
 					user['password'] = hashed_pass
 					#convert JSON list of objects to string
 					ALL_data_str = json.dumps(allusers_data)
 					delete_record_helper(users_db, ALL_data_str)
-					user_exists = False	
-					break	
+					data_updated = True
+
 		if user_exists:
-			#-1 implies user already exists
-			return flask.jsonify({'message': "-1"})
+			if data_updated:
+				#1 implies data stored successfully  
+				return flask.jsonify({'message': "1"})	
+			else:
+				#2 implies user already exists
+				return flask.jsonify({'message': "2"})
+
 		else:
-			#1 implies data stored successfully            
-				return flask.jsonify({'message': "1"})
+			#-1 implies user doesn't exist 
+			return flask.jsonify({'message': "-1"})	 			   	
 	else:
 		#0 means an empty data is sent
 		return flask.jsonify({'message': "0"})
