@@ -39,7 +39,6 @@ grantButton.addEventListener("click", function () {
             if (xhrNewUserAuth.status === 200) {
                 let response = JSON.parse(xhrNewUserAuth.responseText);
                 if (response.message === "1") {
-                    event.preventDefault();
                     newUserConfirmMessage.innerHTML = "<p> Wooop Wooop! Data sent Successfully. Congrats on having a new roommate! </p>"
                 }
                 else if (response.message === "0") {
@@ -147,6 +146,4 @@ finalDeleteButton.addEventListener("click", function () {
             }
         }
     }
-
-
 });

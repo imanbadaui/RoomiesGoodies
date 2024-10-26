@@ -65,8 +65,9 @@ loginButton.addEventListener("click", function () {
                 serverResponse = ReceiveLoginAuthResponse();
                 if (serverResponse == 1) {
                     //store correct username in local storage
-                    if (username) {
+                    if (username.value) {
                         localStorage.setItem("username", username.value);
+                        localStorage.setItem("isUserLoggedIn", "true"); 
                     }
     
                     loader.style.display = 'inline-block';
@@ -94,8 +95,13 @@ adminButton.addEventListener("click", function () {
         if (xhrLoginAuth.status === 200) {
             serverResponse = ReceiveLoginAuthResponse();
             if (serverResponse == 1 && isAdmin) {
-                  //store correct username in local storage
-                  localStorage.setItem("username", username.value);
+                
+                   //store correct username in local storage
+                   if (username.value) {
+                    localStorage.setItem("username", username.value);
+                    localStorage.setItem("isUserLoggedIn", "true"); 
+                }
+
                 loader.style.display = 'inline-block';
                 //sleep for 5 seconds before redirection
                 setTimeout(function () {

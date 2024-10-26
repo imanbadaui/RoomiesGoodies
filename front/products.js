@@ -13,6 +13,19 @@ const updateButton = document.getElementById("updateButton");
 const deleteButton = document.getElementById("deleteButton");
 const updatedCodeInput = document.getElementById("updatedCodeInput");
 const findButton = document.getElementById("findButton");
+const mainContainer = document.getElementById("mainContainer");
+
+//don't reload unless login or admin button is pressed.
+//mainContainer is hidden unless user logs in.
+window.onload = function () {
+    const loggedIn = localStorage.getItem("isUserLoggedIn");
+
+    if (loggedIn != "true") {
+        window.location.href = "homepage.html";
+    }else{
+        mainContainer.style.display = "block";
+    }
+};
 
 let xhrRead = new XMLHttpRequest();
 //sends a request to read all products in DB 
@@ -342,5 +355,7 @@ profilePhoto.addEventListener("click", function () {
 });
 
 logoutButton.addEventListener("click", function () {
+    localStorage.removeItem("username"); 
+    localStorage.removeItem("isUserLoggedIn");
     window.location.href = "homepage.html";
 });
