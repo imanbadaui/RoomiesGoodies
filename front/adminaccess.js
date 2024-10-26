@@ -1,14 +1,18 @@
 //admin grants new username to users, assign if new user is admin or not.
-let newUsername = document.getElementById("newUsername");
-let isAdminCheckBox = document.getElementById("isAdminCheckBox");
-let grantButton = document.getElementById("grantButton");
-let newUserConfirmMessage = document.getElementById("newUserConfirmMessage");
-let goToDashboardButton = document.getElementById("goToDashboardButton");
-let allusers_button = document.getElementById("allusers_button");
+const newUsername = document.getElementById("newUsername");
+const isAdminCheckBox = document.getElementById("isAdminCheckBox");
+const grantButton = document.getElementById("grantButton");
+const newUserConfirmMessage = document.getElementById("newUserConfirmMessage");
+const goToDashboardButton = document.getElementById("goToDashboardButton");
+const allusers_button = document.getElementById("allusers_button");
+const allUsernamesList = document.getElementById("allUsernamesList");
+const deleteUserButton = document.getElementById("deleteUserButton");
+const deletedUserInput = document.getElementById("deletedUserInput");
+const finalDeleteButton = document.getElementById("finalDeleteButton");
+const deleteUserErrorMessage = document.getElementById("deleteUserErrorMessage");
+
+
 let isChecked = false;
-let allUsernamesList = document.getElementById("allUsernamesList");
-
-
 //to check whether the new user should be admin or not.
 isAdminCheckBox.addEventListener("change", function () {
     isChecked = isAdminCheckBox.checked;
@@ -23,13 +27,13 @@ function sendNewUserData() {
     xhrNewUserAuth.setRequestHeader("Content-Type", "application/json");
     // Send the user authentication data as JSON
     xhrNewUserAuth.send(JSON.stringify({ newUsername: newUsernameStr, isNewUserAdmin: newUserAdminAccess }));
-
+    console.log(isChecked);
 }
 
 grantButton.addEventListener("click", function () {
-    if(newUsername.value == ""){
-         newUserConfirmMessage.innerHTML = "<p>Please enter a username. </p>"
-    }else{
+    if (newUsername.value == "") {
+        newUserConfirmMessage.innerHTML = "<p>Please enter a username. </p>"
+    } else {
         sendNewUserData();
         xhrNewUserAuth.onload = function () {
             if (xhrNewUserAuth.status === 200) {
@@ -77,7 +81,7 @@ allusers_button.addEventListener("click", function () {
             let response = JSON.parse(xhrAllUsernames.response);
             let allUsernamesList = response;
             let newUsernamesStr = allUsernamesList.join(", ");
-            modalBody.textContent = newUsernamesStr; 
+            modalBody.textContent = newUsernamesStr;
 
         }
     }
@@ -87,12 +91,62 @@ allusers_button.addEventListener("click", function () {
 // Closes the modal when the "x" is clicked
 closeButton.addEventListener("click", function () {
     modal.style.display = "none";
+    deletedUserInput.style.display = "none";
+    finalDeleteButton.style.display = "none";
+    deleteUserErrorMessage.style.display = "none";
+    deleteUserButton.style.display = "block";
 });
 
 // Closes the modal when clicking outside the modal content
 window.addEventListener("click", function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        deletedUserInput.style.display = "none";
+        finalDeleteButton.style.display = "none";
+        deleteUserButton.style.display = "block";
+        deleteUserErrorMessage.style.display = "none";
     }
 });
 
+
+
+let xhrDelete = new XMLHttpRequest();
+let deletedUser = "";
+//send deleted user's username to backend to delete user's data.
+function sendDeleteuserRequest() {
+    let deletedUser = deletedUserInput.value;
+    xhrDelete.open("POST", "http://127.0.0.1:5000/deleteUser", true);
+    xhrDelete.setRequestHeader("Content-Type", "application/json");
+    xhrDelete.send(JSON.stringify({ deletedUsername: deletedUser }));
+}
+
+deleteUserButton.addEventListener("click", function () {
+    deleteUserButton.style.display = "none";
+    deletedUserInput.style.display = "block";
+    finalDeleteButton.style.display = "block";
+});
+
+finalDeleteButton.addEventListener("click", function () {
+    deleteUserErrorMessage.style.display = "block";
+
+    if (deletedUserInput.value == "") {
+        deleteUserErrorMessage.innerHTML = "<p> Please enter a username. </p>";
+    } else {
+       
+        sendDeleteuserRequest();
+        xhrDelete.onload = function () {
+            if (xhrDelete.status === 200) {
+                let response = JSON.parse(xhrDelete.responseText);
+                if (response.message == "1") {
+                    deleteUserErrorMessage.innerHTML = "<p>" + deletedUserInput.value + " deleted successfully. </p>";
+                } else if (response.message == "0") {
+                    deleteUserErrorMessage.innerHTML = "User doesn't exist.";
+                }
+            } else {
+                deleteUserErrorMessage.innerHTML = "<p> An error occurred while deleting username. Please try again. </p>";
+            }
+        }
+    }
+
+
+});

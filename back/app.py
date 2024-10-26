@@ -222,6 +222,34 @@ def receive_new_password_data():
 
 
 
+
+
+##### Deleting a user API #####
+#CRUD DELETE.
+@app.route("/deleteUser" , methods=['POST'])
+def receive_deleted_user():
+	data = flask.request.get_json()  
+	deleted_username = data.get("deletedUsername")
+	old_users_list = read_json_db(users_db)
+	new_users_list = []
+
+	for user in old_users_list:
+		if user['username'] != deleted_username:
+			new_users_list.append(user)
+
+	if len(new_users_list) < len(old_users_list):
+		ALL_data_str = json.dumps(new_users_list)
+		delete_record_helper(users_db, ALL_data_str)
+		#1 means user deleted successfully.
+		return flask.jsonify({'message': "1"})
+	else:
+		#0 means user not exist.
+		return flask.jsonify({'message': "0"})
+	
+
+
+
+
 ##### Reading All products API #####
 #CRUD READ.
 @app.route("/readProducts" , methods=['POST'])

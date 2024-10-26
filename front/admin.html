@@ -13,23 +13,31 @@
 <body>
     <div id="infoModal" class="modal">
         <div class="modal-content">
-            
+
             <h5 id="modalTitle"></h5>
             <p id="modalBody"></p>
-          <span class="close">&times;</span>
-       
+            <span class="close">&times;</span>
+            <input type="button" value="Delete a Roomie" class="btn" onmouseover="this.style.color='#f6f6f6';"
+                onmouseout="this.style.color='black';" id="deleteUserButton">
+
+            <div id="delete-container">
+                <input type="text" class="form-control" id="deletedUserInput" placeholder="Enter roomie username"
+                    name="deletedUserInput" class="box" required>
+                <input type="button" value="Delete" class="btn" onmouseover="this.style.color='#f6f6f6';"
+                    onmouseout="this.style.color='black';" id="finalDeleteButton">
+            </div>
+            <div class = "container-fluid" id="deleteUserErrorMessage"></div>
         </div>
-      </div>
+    </div>
 
     <div id="main-container" class="container-fluid">
 
-        <div id = "form_container" class="container-fluid">
-            <form>
+        <div id="form-container" class="container-fluid">
+
+            <form action="/profile" method="get">
                 <h1 class="container-fluid" id="adminH1">Admin Access</h1> <br>
-                <input type="button" value="List of all usernames" class="btn"
-                    style="background-color: #f4c524; color: black; width: 100%;"
-                    onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
-                    id="allusers_button"> <br><br>
+                <input type="button" value="List of all usernames" class="btn" onmouseover="this.style.color='#f6f6f6';"
+                    onmouseout="this.style.color='black';" id="allusers_button"> <br><br>
                 <h3 class="container-fluid" id="grant-new-username-message"> Grant a new username </h3> <br>
                 <input type="text" class="form-control" id="newUsername" placeholder="Enter new roomie username"
                     name="newUsername" class="box" required><br>
@@ -37,18 +45,14 @@
                 <label for="isAdminCheckBox ">Check this if new roomie is Admin?</label>
                 <input type="checkbox" class="form-check-input" id="isAdminCheckBox" name="isAdminCheckBox"><br><br>
 
-                <input type="button" value="Grant" class="btn"
-                    style="background-color: #f4c524; color: black; width: 100%;"
-                    onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';" id="grantButton">
+                <input type="button" value="Grant" class="btn" onmouseover="this.style.color='#f6f6f6';"
+                    onmouseout="this.style.color='black';" id="grantButton">
                 <br>
 
                 <div class="custom-paragraph mb-4" id="newUserConfirmMessage"></div>
-                <input type="button" value="Go to Dashboard" class="btn"
-                    style="background-color: #f4c524; color: black; width: 100%;"
-                    onmouseover="this.style.color='#f6f6f6';" onmouseout="this.style.color='black';"
-                    id="goToDashboardButton">
+                <input type="button" value="Go to Dashboard" class="btn" onmouseover="this.style.color='#f6f6f6';"
+                    onmouseout="this.style.color='black';" id="goToDashboardButton">
             </form>
-            
         </div>
     </div>
 
