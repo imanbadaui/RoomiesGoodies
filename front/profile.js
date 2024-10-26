@@ -19,6 +19,8 @@ let username = localStorage.getItem("username");
 grantedUsername.value = "Your granted username is: " + username;
 
 changePasswordButton.addEventListener("click", function(){
+    localStorage.removeItem("username"); 
+    localStorage.removeItem("isUserLoggedIn");
     window.location.href = "newpassword.html";
 });
 

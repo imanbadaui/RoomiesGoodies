@@ -17,7 +17,7 @@ function sendNewAccountData() {
     //password for new user account
     grantedUsernameStr = grantedUsername.value;
     newPasswordForRommie = newRoomiePassword.value;
-    secretWord = secretWordInput.value;
+    secretWord = secretWordInput.value.toLowerCase().split(" ").join("");
     xhrNewPasswordAuth.open("POST", "http://127.0.0.1:5000/newPassword", true);
     xhrNewPasswordAuth.setRequestHeader("Content-Type", "application/json");
     // Send the new password and granted username data as JSON
@@ -27,7 +27,9 @@ function sendNewAccountData() {
 newPasswordButton.addEventListener("click", function () {
     newPasswordForRommie = newRoomiePassword.value;
     repasswordValue = rePassword.value;
-    secretWord = secretWordInput.value;
+    //make sure secret word all lower case with no spaces.
+    secretWord =  secretWordInput.value.toLowerCase().split(" ").join("");
+
     if (grantedUsername.value == "") {
         newPasswordConfirmMessage.innerHTML = "<p> Please enter your username. </p>";
     } else if (newPasswordForRommie == "") {

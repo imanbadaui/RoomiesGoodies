@@ -246,6 +246,25 @@ def receive_deleted_user():
 		#0 means user not exist.
 		return flask.jsonify({'message': "0"})
 	
+	
+	
+	
+	
+##### All Usernames API #####
+#CRUD READ.
+#returns a list of all the usernames in DB to the front-end.
+@app.route("/allUsernamesRequest" , methods=['POST'])
+def all_usernames_request():
+	allusernames_data = read_json_db(users_db)
+
+	#list of all the products to be sent to front end
+	usernames_list = []
+
+	for user in allusernames_data:
+		usernames_list.append(user['username'])
+
+	return flask.jsonify(usernames_list)
+
 
 
 
@@ -266,27 +285,6 @@ def allproducts_request():
 
 	return flask.jsonify(products_list)
 
-
-
-
-##### All Usernames API #####
-#CRUD READ.
-#returns a list of all the usernames in DB to the front-end.
-@app.route("/allUsernamesRequest" , methods=['POST'])
-def all_usernames_request():
-	allusernames_data = read_json_db(users_db)
-
-	#list of all the products to be sent to front end
-	usernames_list = []
-
-	for user in allusernames_data:
-		usernames_list.append(user['username'])
-
-	return flask.jsonify(usernames_list)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
 
 
