@@ -343,9 +343,18 @@ def receive_product():
 	access = data.get("access")
 	unit = data.get("unit")
 
+	#convert access from string to int to fit in product class and in DB.
+	#1 means personal, 2 means shared
+	access_as_num = 0
+	if access == "personal":
+		access_as_num = 1
+	elif access == "shared":
+		access_as_num = 2
+
 	product_exist = False
 	
-	new_product = Product(code,name,owner,price,type,quantity,unit,access)
+	new_product = Product(code,name,owner,price,type,quantity,unit,access_as_num)
+
 	new_product_dict = new_product.to_dict()
 	#loop over DB, if product exists, rewrite it, else, add it.
 	allproducts_data = read_json_db(products_db)

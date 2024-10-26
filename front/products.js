@@ -202,7 +202,7 @@ function addRecord() {
             send_write_request(newProduct[0], newProduct[1], newProduct[2], newProduct[3], newProduct[4], newProduct[5], newProduct[6], newProduct[7]);
 
             newRow.remove();
-
+            
             row = `<tr>
                           <td >${randomCode} </td>
                           <td >${newProduct[1]} </td>

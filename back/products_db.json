@@ -1,91 +1,81 @@
 [
     {
-        "code": "54",
+        "code": "985",
         "name": "tomato",
         "owner": "Immz",
-        "price": "23.5",
+        "price": "35.5",
         "type": "vege",
-        "quantity": "5",
-        "unit": "pieces",
-        "access": 1
-    },
-    {
-        "code": "80",
-        "name": "apple",
-        "owner": "Sarah",
-        "price": "200",
-        "type": "fruit",
-        "quantity": "5",
-        "unit": "pieces",
-        "access": 1
-    },
-    {
-        "code": "74",
-        "name": "mango",
-        "owner": "Loli",
-        "price": 80,
-        "type": "fruit",
-        "quantity": 8,
-        "unit": "pieces",
-        "access": 2
-    },
-    {
-        "code": "23",
-        "name": "orange juice",
-        "owner": "Stef",
-        "price": 55,
-        "type": "juice",
-        "quantity": 1,
-        "unit": "liter",
-        "access": 2
-    },
-    {
-        "code": "388",
-        "name": "mango",
-        "owner": "Sarah",
-        "price": "150",
-        "type": "fruit",
-        "quantity": "3",
-        "unit": "pieces",
-        "access": 2
-    },
-    {
-        "code": "974",
-        "name": "cucumber",
-        "owner": "Immz",
-        "price": "45",
-        "type": "fruit",
         "quantity": "10",
         "unit": "pieces",
+        "access": 2
+    },
+    {
+        "code": "970",
+        "name": "cucumber",
+        "owner": "Loli",
+        "price": "37",
+        "type": "vege",
+        "quantity": "15",
+        "unit": "pieces",
+        "access": 2
+    },
+    {
+        "code": "501",
+        "name": "apple",
+        "owner": "Immz",
+        "price": "130",
+        "type": "fruit",
+        "quantity": "6",
+        "unit": "pieces",
         "access": 1
     },
     {
-        "code": "685",
+        "code": "478",
         "name": "cheese",
         "owner": "Stef",
         "price": "78",
         "type": "dairy",
         "quantity": ".25",
-        "unit": "pieces",
+        "unit": "kilo",
         "access": 1
     },
     {
-        "code": "553",
-        "name": "garlic",
-        "owner": "Immz",
-        "price": "230",
-        "type": "vege",
-        "quantity": "4",
-        "unit": "packs",
+        "code": "406",
+        "name": "mango",
+        "owner": "Loli",
+        "price": "98",
+        "type": "fruit",
+        "quantity": "5",
+        "unit": "pieces",
         "access": 2
     },
     {
-        "code": "184",
-        "name": "carrot",
+        "code": "282",
+        "name": "bread",
+        "owner": "Sarah",
+        "price": "25",
+        "type": "bakery",
+        "quantity": "8",
+        "unit": "pieces",
+        "access": 2
+    },
+    {
+        "code": "5",
+        "name": "white bread",
         "owner": "Loli",
-        "price": "167",
-        "type": "vege",
-        "quantity": "6",
+        "price": "13",
+        "type": "bakery",
+        "quantity": "15",
+        "unit": "pieces",
+        "access": 2
+    },
+    {
+        "code": "845",
+        "name": "dettol soap",
+        "owner": "Immz",
+        "price": "46",
+        "type": "clean",
+        "quantity": "1",
         "unit": "pieces",
         "access": 1
     }
