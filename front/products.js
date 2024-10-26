@@ -1,11 +1,9 @@
 const logo = document.getElementById("logo");
 const profilePhoto = document.getElementById("profilePhoto");
 const logoutButton = document.getElementById("logoutButton");
-const searchTypeRadios = document.querySelectorAll('input[name="searchType"]');
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 let tbody = document.querySelector('tbody');
-let searchType = document.querySelector('input[name="searchType"]:checked').value;
 const AddButton = document.getElementById("AddButton");
 const crudMesssage = document.getElementById("crudMesssage");
 const saveChangesButton = document.getElementById("saveChangesButton");
@@ -14,7 +12,7 @@ const deleteButton = document.getElementById("deleteButton");
 const updatedCodeInput = document.getElementById("updatedCodeInput");
 const findButton = document.getElementById("findButton");
 const mainContainer = document.getElementById("mainContainer");
-
+let searchMessage = document.getElementById("searchMessage");
 //don't reload unless login or admin button is pressed.
 //mainContainer is hidden unless user logs in.
 window.onload = function () {
@@ -22,7 +20,7 @@ window.onload = function () {
 
     if (loggedIn != "true") {
         window.location.href = "homepage.html";
-    }else{
+    } else {
         mainContainer.style.display = "block";
     }
 };
@@ -53,6 +51,9 @@ function populateAllProducts() {
 
 populateAllProducts();
 
+
+let searchTypeRadios = document.querySelectorAll('input[name="searchType"]');
+let searchType = "";
 //loop over radio buttons to get the checked value.
 searchTypeRadios.forEach(radio => {
     radio.addEventListener("change", function () {
@@ -64,8 +65,9 @@ searchTypeRadios.forEach(radio => {
 let xhrQueryAuth = new XMLHttpRequest();
 //sends a search request to backend to find a product.
 function send_search_query() {
-
     const searchValue = searchInput.value;
+    //to get first default value.
+    searchType = document.querySelector('input[name="searchType"]:checked').value;
     xhrQueryAuth.open("POST", "http://127.0.0.1:5000/query", true);
     xhrQueryAuth.setRequestHeader("Content-Type", "application/json");
 
@@ -105,20 +107,40 @@ function deleteAll() {
     tbody.innerHTML = "";
 }
 
+
 resultProducts = []
+
 searchButton.addEventListener("click", function () {
-    send_search_query();
-    //check if data sent or not.
-    xhrQueryAuth.onload = function () {
-        if (xhrQueryAuth.status === 200) {
-            let response = JSON.parse(xhrQueryAuth.response);
-            //response is array of Object of this structure {access: 1, code: "54", name: "tomato" , owner: "Immz", price: 23.5, quantity: 5, type: "fruit", unit: "pieces"}
-            products = response;
-            if (searchInput.value != "" && tbody.innerHTML != "") {
-                deleteAll();
-                populate(products);
+    if (searchInput.value.trim() == "") {
+        searchMessage.style.display = "inline-block";
+        searchMessage.innerHTML = "<p> Please enter a search term. </p>";
+    } else {
+      
+        send_search_query();
+        console.log(searchType + " " + searchInput.value);
+        //check if data sent or not.
+        xhrQueryAuth.onload = function () {
+            if (xhrQueryAuth.status === 200) {
+                let response = JSON.parse(xhrQueryAuth.response);
+                //response is array of Object of this structure {access: 1, code: "54", name: "tomato" , owner: "Immz", price: 23.5, quantity: 5, type: "fruit", unit: "pieces"}
+                products = response;
+                console.log(products.length);
+                if (products.length != 0){
+                    if (searchInput.value != "") {
+                        deleteAll();
+                        populate(products);
+                    }
+                }else{
+                    //Current approach: when no result from search exists in DB, delete all and leave it empty.
+                    //Alternative approach: when no result from search exists in DB, delete all and repopulate the table with all products in DB
+                    deleteAll();
+                    //populateAllProducts();
+                    searchMessage.style.display = "inline-block";
+                    searchMessage.innerHTML = "<p> Please enter a valid search term. </p>";
+                }  
             }
         }
+        searchMessage.style.display = "none";
     }
 });
 
@@ -293,7 +315,7 @@ function send_delete_request(deletedRecordCode) {
     xhrDelete.open("POST", "http://127.0.0.1:5000//deleteProduct", true);
     xhrDelete.setRequestHeader("Content-Type", "application/json");
     //sends new product as a string.
-    xhrDelete.send(JSON.stringify({ "deleted_record_code": deletedRecordCode}));
+    xhrDelete.send(JSON.stringify({ "deleted_record_code": deletedRecordCode }));
 }
 
 
@@ -355,7 +377,7 @@ profilePhoto.addEventListener("click", function () {
 });
 
 logoutButton.addEventListener("click", function () {
-    localStorage.removeItem("username"); 
+    localStorage.removeItem("username");
     localStorage.removeItem("isUserLoggedIn");
     window.location.href = "homepage.html";
 });
