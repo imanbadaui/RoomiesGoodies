@@ -302,28 +302,28 @@ def receive_search_query():
 
 	#list of all the selected products to be sent to front end
 	sent_products_list = []
-
+	products_added = False
 	if search_type == "product":
 		#If product, loop over all products and add selected to list
 		for prod in allproducts_data:
-			selected_product = Product(prod['code'], prod['name'],prod['owner'], prod['price'], prod['type'] ,prod['quantity'],  prod['unit'], prod['access'])
-			#return all products with this product name
-			if selected_product.product_name.lower() == search_value.lower():
+			if prod["name"].lower() == search_value.lower():
+				selected_product = Product(prod['code'], prod['name'],prod['owner'], prod['price'], prod['type'] ,prod['quantity'],  prod['unit'], prod['access'])
+				#return all products with this product name
 				sent_products_list.append(selected_product)
+		products_added = True
 
 	elif search_type == "owner":
 		#If owner, loop over all products and add products belong to this owner to list.
 		for prod in allproducts_data:
-			selected_product = Product(prod["code"], prod["name"],prod["owner"], prod["price"], prod["type"] ,prod["quantity"],  prod["unit"], prod["access"])
-			#return all products with this product name
-			if selected_product.product_owner.lower() == search_value.lower():
+			if prod["owner"].lower() == search_value.lower():
+				selected_product = Product(prod["code"], prod["name"],prod["owner"], prod["price"], prod["type"] ,prod["quantity"],  prod["unit"], prod["access"])
+				#return all products belongs to this owner
 				sent_products_list.append(selected_product)
-
-	serialized_products = [product.to_dict() for product in sent_products_list]
-	return flask.jsonify(serialized_products)
-
-
-
+		products_added = True
+	
+	if products_added:
+		serialized_products = [product.to_dict() for product in sent_products_list]
+		return flask.jsonify(serialized_products)
 
 
 
