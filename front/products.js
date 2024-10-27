@@ -115,7 +115,7 @@ searchButton.addEventListener("click", function () {
         searchMessage.style.display = "inline-block";
         searchMessage.innerHTML = "<p> Please enter a search term. </p>";
     } else {
-      
+
         send_search_query();
         console.log(searchType + " " + searchInput.value);
         //check if data sent or not.
@@ -125,19 +125,19 @@ searchButton.addEventListener("click", function () {
                 //response is array of Object of this structure {access: 1, code: "54", name: "tomato" , owner: "Immz", price: 23.5, quantity: 5, type: "fruit", unit: "pieces"}
                 products = response;
                 console.log(products.length);
-                if (products.length != 0){
+                if (products.length != 0) {
                     if (searchInput.value != "") {
                         deleteAll();
                         populate(products);
                     }
-                }else{
+                } else {
                     //Current approach: when no result from search exists in DB, delete all and leave it empty.
                     //Alternative approach: when no result from search exists in DB, delete all and repopulate the table with all products in DB
                     deleteAll();
                     //populateAllProducts();
                     searchMessage.style.display = "inline-block";
                     searchMessage.innerHTML = "<p> Please enter a valid search term. </p>";
-                }  
+                }
             }
         }
         searchMessage.style.display = "none";
@@ -203,7 +203,7 @@ function addRecord() {
             send_write_request(newProduct[0], newProduct[1], newProduct[2], newProduct[3], newProduct[4], newProduct[5], newProduct[6], newProduct[7]);
 
             newRow.remove();
-            
+
             row = `<tr>
                           <td >${randomCode} </td>
                           <td >${newProduct[1]} </td>
@@ -242,25 +242,28 @@ function updateRecord() {
         findButton.style.display = "block";
 
         findButton.addEventListener("click", function () {
+
             updatedRecordCode = updatedCodeInput.value;
 
             let rows = document.querySelectorAll('tbody tr');
-
+            let username = localStorage.getItem("username");
 
             rows.forEach(function (row) {
                 let row_code = row.cells[0].textContent.trim();
-                if (row_code == updatedRecordCode) {
+                if (row_code == updatedRecordCode && row.cells[2].textContent.trim() == username) {
+                    crudMesssage.style.display= "none";
                     //to get  wider scope to be used outside this event listener.
                     selected_row = row;
                     let tbody = selected_row.parentNode;
                     tbody.insertBefore(selected_row, tbody.firstChild);
                     for (let i = 1; i < selected_row.cells.length; i++) {
-                        if(i != 2){
+                        if (i != 2) {
                             selected_row.cells[i].setAttribute('contenteditable', 'true');
                             selected_row.cells[i].style.backgroundColor = 'lightblue';
                         }
-                      
                     }
+                } else {
+                    crudMesssage.innerHTML = "<p> You can't update a product that's not yours. </p>"
                 }
             });
         });
@@ -279,7 +282,7 @@ function updateRecord() {
                 }
             }
             if (dataNotComplete) {
-                crudMesssage.innerHTML = "<p> Please fill all fields. </p>"
+                crudMesssage.innerHTML = "<p> Please fill all fields. </p>";
             } else {
                 selected_row.remove();
                 selected_row = `<tr>
