@@ -375,11 +375,13 @@ function deleteRecord() {
             updatedRecordCode = updatedCodeInput.value;
 
             let rows = document.querySelectorAll('tbody tr');
+            let username = localStorage.getItem("username");
 
             //searching for deleted row
             rows.forEach(function (row) {
                 let row_code = row.cells[0].textContent.trim();
-                if (row_code == updatedRecordCode) {
+                if (row_code == updatedRecordCode && row.cells[2].textContent.trim() == username) {
+                    crudMesssage.style.display = "none";
                     //to get  wider scope to be used outside this event listener.
                     selected_row = row;
                     deletedRecordCode = row_code;
@@ -388,6 +390,8 @@ function deleteRecord() {
                     for (let i = 1; i < selected_row.cells.length; i++) {
                         selected_row.cells[i].style.backgroundColor = '#ffcccb';
                     }
+                }else{
+                    crudMesssage.innerHTML = "<p>You can't delete a product that's not yours. </p>";
                 }
             });
         });
