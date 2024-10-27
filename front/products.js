@@ -161,10 +161,11 @@ function send_write_request(code, name, owner, price, type, quantity, access, un
 function addRecord() {
     //that makes max number of products in db is 1000. generates codes of 3 numbers only.
     let randomCode = Math.floor(Math.random() * 1000) + 1;
+    let username = localStorage.getItem("username");
     let row = `<tr>
-                      <td >${randomCode} </td>
+                      <td>${randomCode} </td>
                       <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
-                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td> ${username} </td>
                       <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
                       <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
                       <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
@@ -254,8 +255,11 @@ function updateRecord() {
                     let tbody = selected_row.parentNode;
                     tbody.insertBefore(selected_row, tbody.firstChild);
                     for (let i = 1; i < selected_row.cells.length; i++) {
-                        selected_row.cells[i].setAttribute('contenteditable', 'true');
-                        selected_row.cells[i].style.backgroundColor = 'lightblue';
+                        if(i != 2){
+                            selected_row.cells[i].setAttribute('contenteditable', 'true');
+                            selected_row.cells[i].style.backgroundColor = 'lightblue';
+                        }
+                      
                     }
                 }
             });
