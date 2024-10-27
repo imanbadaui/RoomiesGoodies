@@ -163,21 +163,20 @@ function addRecord() {
     let randomCode = Math.floor(Math.random() * 1000) + 1;
     let username = localStorage.getItem("username");
     let row = `<tr>
-                      <td>${randomCode} </td>
-                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
-                      <td> ${username} </td>
-                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
-                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
-                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
-                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
-                      <td contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td id="productCode">${randomCode} </td>
+                      <td id="productName" contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td id="productOwner"> ${username} </td>
+                      <td id="productPrice" contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td id="productType" contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td id="productQuantity" contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td id="productAccess" contenteditable="true" style="background-color: #ffdd6a;" > </td>
+                      <td id="productUnit" contenteditable="true" style="background-color: #ffdd6a;" > </td>
                    </tr>`;
 
     tbody.insertAdjacentHTML('afterbegin', row);
 
     let newRow;
     let cells;
-    let newProduct = [];
 
     saveChangesButton.style.display = "block";
     saveChangesButton.addEventListener("click", function () {
@@ -186,20 +185,54 @@ function addRecord() {
         //selects columns. assumes user will add all right values in right places 
         cells = newRow.getElementsByTagName('td');
 
-        dataNotComplete = false;
+        let dataNotComplete = false;
+        let wrongType = false;
+        let wrongAccess = false;
+        let wrongUnit = false;
+        let currentCell = "";
+        let newProduct = [];
 
         //loops over cells of record and pushes them to an array
         for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerText.trim() == "") {
+            currentCell = cells[i].innerText.trim();
+            if (currentCell == "") {
                 dataNotComplete = true;
                 break;
             } else {
-                newProduct.push(cells[i].innerText.trim());
+                if (cells[i].getAttribute("id") == "productType") {
+                    if (currentCell !== "vege" && currentCell != "fruit" && currentCell != "clean"
+                        && currentCell != "bakery" && currentCell != "dairy") {
+                        wrongType = true;
+                        break;
+                    }
+                } else if (cells[i].getAttribute("id") == "productAccess") {
+                    if (currentCell != "shared" && currentCell != "personal") {
+                        wrongAccess = true;
+                        break;
+                    }
+                } else if (cells[i].getAttribute("id") == "productUnit") {
+                    if (currentCell != "piece" && currentCell != "pack" &&
+                        currentCell != "kilo" && currentCell != "gram") {
+                        wrongUnit = true;
+                        break;
+                    }
+                }
+                newProduct.push(currentCell);
             }
         }
+
+
         if (dataNotComplete) {
-            crudMesssage.innerHTML = "<p> Please fill all fields. </p>"
-        } else {
+            crudMesssage.innerHTML = "<p> Please fill all fields. </p>";
+        }
+        else if (wrongAccess) {
+            crudMesssage.innerHTML = "<p> Please fill product access with \"shared\" or \"personal\". </p>";
+        } else if (wrongType) {
+            crudMesssage.innerHTML = "<p> Please fill product type with \"vege\" or \"fruit\" or \"clean\" or \"bakery\" or \"dairy\". </p>";
+        } else if (wrongUnit) {
+            crudMesssage.innerHTML = "<p> Please fill product type with \"piece\" or \"pack\" or \"kilo\" or \"gram\". </p>";
+        }
+        else {
             send_write_request(newProduct[0], newProduct[1], newProduct[2], newProduct[3], newProduct[4], newProduct[5], newProduct[6], newProduct[7]);
 
             newRow.remove();
@@ -251,7 +284,7 @@ function updateRecord() {
             rows.forEach(function (row) {
                 let row_code = row.cells[0].textContent.trim();
                 if (row_code == updatedRecordCode && row.cells[2].textContent.trim() == username) {
-                    crudMesssage.style.display= "none";
+                    crudMesssage.style.display = "none";
                     //to get  wider scope to be used outside this event listener.
                     selected_row = row;
                     let tbody = selected_row.parentNode;

@@ -1,1 +1,102 @@
-[{"code": "985", "name": "tomato", "owner": "Immz", "price": "35.5", "type": "vege", "quantity": "10", "unit": "pieces", "access": 2}, {"code": "970", "name": "cucumber", "owner": "Loli", "price": "37", "type": "vege", "quantity": "15", "unit": "pieces", "access": 2}, {"code": "501", "name": "apple", "owner": "Immz", "price": "130", "type": "fruit", "quantity": "6", "unit": "pieces", "access": 1}, {"code": "478", "name": "cheese", "owner": "Stef", "price": "78", "type": "dairy", "quantity": ".25", "unit": "kilo", "access": 1}, {"code": "406", "name": "mango", "owner": "Loli", "price": "98", "type": "fruit", "quantity": "5", "unit": "pieces", "access": 2}, {"code": "282", "name": "diet bread", "owner": "Sarah", "price": "25", "type": "bakery", "quantity": "8", "unit": "pieces", "access": 2}, {"code": "5", "name": "white bread", "owner": "Loli", "price": "13", "type": "bakery", "quantity": "15", "unit": "pieces", "access": 2}, {"code": "845", "name": "dettol soap", "owner": "Immz", "price": "46", "type": "clean", "quantity": "1", "unit": "pieces", "access": 1}, {"code": "424", "name": "luncheon", "owner": "Stef", "price": "45", "type": "deli cuts", "quantity": ".35", "unit": "gram", "access": 1}]
+[
+    {
+        "code": "985",
+        "name": "tomato",
+        "owner": "Immz",
+        "price": "35.5",
+        "type": "vege",
+        "quantity": "10",
+        "unit": "piece",
+        "access": 2
+    },
+    {
+        "code": "970",
+        "name": "cucumber",
+        "owner": "Loli",
+        "price": "37",
+        "type": "vege",
+        "quantity": "15",
+        "unit": "piece",
+        "access": 2
+    },
+    {
+        "code": "501",
+        "name": "apple",
+        "owner": "Immz",
+        "price": "130",
+        "type": "fruit",
+        "quantity": "6",
+        "unit": "piece",
+        "access": 1
+    },
+    {
+        "code": "478",
+        "name": "cheese",
+        "owner": "Stef",
+        "price": "78",
+        "type": "dairy",
+        "quantity": ".25",
+        "unit": "kilo",
+        "access": 1
+    },
+    {
+        "code": "406",
+        "name": "mango",
+        "owner": "Loli",
+        "price": "98",
+        "type": "fruit",
+        "quantity": "5",
+        "unit": "piece",
+        "access": 2
+    },
+    {
+        "code": "282",
+        "name": "diet bread",
+        "owner": "Sarah",
+        "price": "25",
+        "type": "bakery",
+        "quantity": "8",
+        "unit": "piece",
+        "access": 2
+    },
+    {
+        "code": "5",
+        "name": "white bread",
+        "owner": "Loli",
+        "price": "13",
+        "type": "bakery",
+        "quantity": "15",
+        "unit": "piece",
+        "access": 2
+    },
+    {
+        "code": "845",
+        "name": "dettol soap",
+        "owner": "Immz",
+        "price": "46",
+        "type": "clean",
+        "quantity": "1",
+        "unit": "piece",
+        "access": 1
+    },
+    {
+        "code": "424",
+        "name": "luncheon",
+        "owner": "Stef",
+        "price": "45",
+        "type": "deli cuts",
+        "quantity": ".35",
+        "unit": "gram",
+        "access": 1
+    },
+    {
+        "code": "827",
+        "name": "vanish",
+        "owner": "Loli",
+        "price": "165",
+        "type": "clean",
+        "quantity": "1",
+        "unit": "pack",
+        "access": 2
+    }
+]
